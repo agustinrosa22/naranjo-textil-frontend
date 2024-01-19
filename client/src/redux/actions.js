@@ -8,8 +8,8 @@ export const getProducts = () => {
         try {
             const apiData = await axios.get('/product');
             return dispatch({
-                type: GET_PRODUCTS,
-                payload: response.data,
+              type: GET_PRODUCTS,
+              payload: apiData.data.data, // Cambia a apiData.data
             });
         } catch (error) {
             console.error(error);
