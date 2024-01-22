@@ -14,9 +14,9 @@ import axios from 'axios';
   <Provider store={store}>
   <React.StrictMode>
     <BrowserRouter>
-    <App />
+    <App/>
     </BrowserRouter>
-  </React.StrictMode>,
+  </React.StrictMode>
   </Provider>,
   document.getElementById('root')
 );
