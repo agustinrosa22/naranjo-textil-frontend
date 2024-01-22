@@ -1,0 +1,14 @@
+.navContainer{
+ border: 1px solid red;
+}
+.navbar{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-color: 1px solid red; 
+    padding: 10px 20px;
+    /* position: fixed; */
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+}
