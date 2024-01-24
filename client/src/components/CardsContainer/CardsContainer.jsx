@@ -15,9 +15,10 @@ const CardsContainer = () => {
 
     return (
         <div className={styles.container}>
-            {productList.map(({productoId, nombreProducto, image, medidas, proveedor, proveedorId, cantidad, fecha, costo, regPrevio, costoPrevio}) => (
+            {productList.map(({productoId, nombreProducto, image, medidas, proveedor, proveedorId, cantidad, fecha, costo, regPrevio, costoPrevio, id}) => (
                 <Card
-                    key={productoId}
+                    key={id}
+                    id={id}
                     productoId={productoId}
                     nombreProducto={nombreProducto}
                     image={image} // Agrega la propiedad correspondiente para la imagen

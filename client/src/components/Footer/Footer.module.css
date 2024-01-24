@@ -1,7 +1,10 @@
+.footerContainer{
+    border-color: 1px solid red; 
+    background-color: azure;
+}
+
 .footer {
-    margin-top: auto;
-    background-color: rgb(23, 25, 54);
-      color: white;
-      padding: 0px;
-      text-align: center;
+    border-color: 1px solid red; 
+    padding: 0px;
+    text-align: center;
     }
