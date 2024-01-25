@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import { createProduct } from '../../redux/actions'
 import { useNavigate } from 'react-router-dom';
 import styles from './ProductForm.module.css';
+import Logo from '../../assets/logo.png'
 
 const ProductForm = () => {
   const dispatch = useDispatch();
@@ -39,10 +40,13 @@ const ProductForm = () => {
   return (
     <div className={styles.container}>
     <h1 className={styles.title}>Crear Nuevo Producto</h1>
+    <div className={styles.formBoxContainer}>
     <form onSubmit={handleSubmit}>
       <label>
-        Nombre del Producto:
+        Nombre del producto:
         <input
+          className={styles.input}
+          placeholder='Nombre del producto'
           type="text"
           name="nombreProducto"
           value={formData.nombreProducto}
@@ -52,8 +56,10 @@ const ProductForm = () => {
       <label>
         ID del Producto:
         <input
+          className={styles.input}
+          placeholder='Id del producto '
           type="text"
-          name="productId"
+          name="productoId"
           value={formData.productoId}
           onChange={handleChange}
         />
@@ -61,6 +67,7 @@ const ProductForm = () => {
       <label>
         Imagen:
         <input
+          className={styles.input}
           type="text"
           name="image"
           value={formData.image}
@@ -70,6 +77,8 @@ const ProductForm = () => {
       <label>
         Medidas:
         <input
+          className={styles.input}
+          placeholder='Medidas'
           type="text"
           name="medidas"
           value={formData.medidas}
@@ -79,6 +88,8 @@ const ProductForm = () => {
       <label>
         Proveedor:
         <input
+          className={styles.input}
+          placeholder='Proveedor'
           type="text"
           name="proveedor"
           value={formData.proveedor}
@@ -88,6 +99,8 @@ const ProductForm = () => {
       <label>
         ID del Proveedor:
         <input
+          className={styles.input}
+          placeholder='Id del proveedor'
           type="text"
           name="proveedorId"
           value={formData.proveedorId}
@@ -97,6 +110,7 @@ const ProductForm = () => {
       <label>
         Cantidad:
         <input
+          className={styles.input}
           type="number"
           name="cantidad"
           value={formData.cantidad}
@@ -106,6 +120,7 @@ const ProductForm = () => {
       <label>
           Fecha:
           <input
+            className={styles.input}
             type="date"
             name="fecha"
             value={formData.fecha}
@@ -115,6 +130,7 @@ const ProductForm = () => {
         <label>
           Registro Previo:
           <input
+            className={styles.input}
             type="number"
             name="regPrevio"
             value={formData.regPrevio}
@@ -124,6 +140,7 @@ const ProductForm = () => {
         <label>
           Costo Previo:
           <input
+            className={styles.input}
             type="number"
             name="costoPrevio"
             value={formData.costoPrevio}
@@ -133,14 +150,17 @@ const ProductForm = () => {
         <label>
           Costo:
           <input
+            className={styles.input}
             type="number"
             name="costo"
             value={formData.costo}
             onChange={handleChange}
           />
         </label>
-      <button type="submit">Crear Producto</button>
+      <button type="submit" className={styles.submitButton}>Crear Producto</button>
     </form>
+    </div>
+    <img src={Logo} alt="" className={styles.img}/>
     <button onClick={() => navigate(-1)} className={styles.buttonback}>
      Volver
      </button>
