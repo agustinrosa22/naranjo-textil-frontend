@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { createProduct } from '../../redux/actions'
+import { useNavigate } from 'react-router-dom';
 import styles from './ProductForm.module.css';
 
 const ProductForm = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     nombreProducto: '',
     productoId:'',
@@ -139,6 +141,9 @@ const ProductForm = () => {
         </label>
       <button type="submit">Crear Producto</button>
     </form>
+    <button onClick={() => navigate(-1)} className={styles.buttonback}>
+     Volver
+     </button>
   </div>
 );
 };
