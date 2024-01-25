@@ -1,5 +1,6 @@
 import { 
     GET_PRODUCTS,
+    CREATE_PRODUCT,
  } from "./actionTypes";
 
  const initialState = {
@@ -12,6 +13,11 @@ switch(action.type) {
             ...state,
             productList: action.payload
         };
+        case CREATE_PRODUCT:
+            return {
+              ...state,
+              productList: [...state.productList, action.payload],
+            };
         default:
             return state;
     }

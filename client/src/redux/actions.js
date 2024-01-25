@@ -1,6 +1,7 @@
 import axios from 'axios'
 import {
-    GET_PRODUCTS
+    GET_PRODUCTS,
+    CREATE_PRODUCT
 } from './actionTypes'
 
 export const getProducts = () => {
@@ -16,3 +17,17 @@ export const getProducts = () => {
         }
     }
 }
+
+export const createProduct = (productData) => {
+    return async function (dispatch) {
+      try {
+        const response = await axios.post('/product', productData); // Ajusta la URL según tu backend
+        dispatch({
+          type: CREATE_PRODUCT,
+          payload: response.data,
+        });
+      } catch (error) {
+        console.error('Error creating product:', error);
+      }
+    };
+  };

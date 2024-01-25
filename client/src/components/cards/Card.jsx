@@ -5,11 +5,11 @@ import { Link } from 'react-router-dom';
 const Card = (props) => {
     return(
         <div  className={styles.card}>
-            <Link to={`/detail/${props.id}`}>
+            <Link to={`/detail/${props.id}`} className={styles.link}>
             <h1>{props.productoId}</h1>
                 <h2>Nombre: {props.nombreProducto}</h2>
                 <p>Id: {props.id}</p>
-                <img src={props.image} alt={props.nombreProducto} />
+                <img src={props.image} alt={props.nombreProducto}  className={styles.image}/>
                 <p>Medidas: {props.medidas}</p>
                 <p>Proveedor: {props.proveedor}</p>
                 <p>Id del proveedor {props.proveedorId}</p>

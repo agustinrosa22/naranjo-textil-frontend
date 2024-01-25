@@ -21,7 +21,7 @@ const CardsContainer = () => {
                     id={id}
                     productoId={productoId}
                     nombreProducto={nombreProducto}
-                    image={image} // Agrega la propiedad correspondiente para la imagen
+                    image={image} 
                     medidas={medidas}
                     proveedor={proveedor}
                     proveedorId={proveedorId}
@@ -30,6 +30,7 @@ const CardsContainer = () => {
                     costo={costo}
                     regPrevio={regPrevio}
                     costoPrevio={costoPrevio}
+                    className={styles.card}
                 />
             ))}
         </div>
