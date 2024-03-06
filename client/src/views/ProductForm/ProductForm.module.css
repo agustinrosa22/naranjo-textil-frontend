@@ -8,6 +8,7 @@
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     background-color: #fff;
+
   }
   .formBoxContainer {
     flex: 1; /* Ocupa todo el espacio disponible en la izquierda */
@@ -38,8 +39,8 @@
   }
   
   button {
-    background-color: #007bff;
-    color: #fff;
+    background-color: #D3D3E7;
+    color: #000000;
     padding: 10px;
     border: none;
     border-radius: 4px;
@@ -47,11 +48,11 @@
   }
   
   button:hover {
-    background-color: #0056b3;
+    background-color: #a8a8d4;
   }
   
   .buttonback {
-    background-color: #ccc;
+    background-color: #D3D3E7;
     color: #333;
     padding: 10px;
     border: none;
@@ -61,7 +62,7 @@
   }
   
   .buttonback:hover {
-    background-color: #999;
+    background-color: #a8a8d4;
   }
 
   .img {

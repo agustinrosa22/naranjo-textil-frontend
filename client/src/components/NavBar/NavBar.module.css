@@ -1,5 +1,9 @@
 .navContainer{
- border: 1px solid red;
+    background-color: white;
+    display: flex;
+    justify-content: space-between; /* Coloca el espacio disponible entre los elementos */
+    align-items: center; /* Centra verticalmente los elementos */
+    padding: 20px; /* Ajusta el relleno según tus preferencias */
 }
 .navbar{
     display: flex;
@@ -10,4 +14,66 @@
     top: 0;
     width: 100%;
     z-index: 1000;
+}
+
+.logo{
+    top: 20px;
+    width: 200px;
+    margin: 0; /* Elimina los márgenes externos */
+    position: absolute; /* Cambia la posición a absoluta */
+    left: 50%; /* Coloca el título en el 50% del ancho del contenedor */
+    transform: translateX(-50%); /* Centra el título */
+}
+
+.link{
+    text-decoration: none;
+    color: #333; /* Ajusta el color según tus preferencias */
+    font-size: 18px; /* Ajusta el tamaño de la fuente según tus preferencias */
+    margin-left: auto; /* Empuja el enlace hacia el extremo derecho */
+    padding-left: 20px;
+    padding-right: 20px;
+    border: 1px solid black;
+    border-radius: 10px;
+}
+
+
+.link:hover{
+    background-color: #d4d4d4;
+}
+
+.searchBar {
+    display: flex;
+    align-items: center;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.input {
+    flex: 1;
+    border: none;
+    padding: 10px;
+    font-size: 16px;
+}
+
+.searchButton {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.searchButton:hover {
+    background-color: #0056b3;
+}
+
+.linkbalance{
+    text-decoration: none;
+    color: #333; /* Ajusta el color según tus preferencias */
+    font-size: 18px; /* Ajusta el tamaño de la fuente según tus preferencias */
+    margin-left: 15px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border: 1px solid black;
+    border-radius: 10px;
 }

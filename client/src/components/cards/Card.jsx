@@ -7,8 +7,8 @@ const Card = (props) => {
         <div  className={styles.card}>
             <Link to={`/detail/${props.id}`} className={styles.link}>
             <h1>{props.productoId}</h1>
-                <h2>Nombre: {props.nombreProducto}</h2>
-                <p>Id: {props.id}</p>
+                <h2>{props.nombreProducto}</h2>
+                {/* <p>Id: {props.id}</p> */}
                 <img src={props.image} alt={props.nombreProducto}  className={styles.image}/>
                 {/* <p>Medidas: {props.medidas}</p>
                 <p>Proveedor: {props.proveedor}</p> */}

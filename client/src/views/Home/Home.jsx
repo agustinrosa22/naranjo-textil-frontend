@@ -13,7 +13,7 @@ const Home = () => {
 
   return (
     <div className={styles.home}>
-      <h1>Bienvenido a nuestra tienda</h1>
+      <h1>STOCK</h1>
       <CardsContainer />
     </div>
   );

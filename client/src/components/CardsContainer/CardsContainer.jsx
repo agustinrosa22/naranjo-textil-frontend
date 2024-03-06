@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import Card from "../Cards/Card";
 import { getProducts } from "../../redux/actions";
 import styles from './CardsContainer.module.css';
+import { format } from 'date-fns';
+
 
 const CardsContainer = () => {
     const dispatch = useDispatch();

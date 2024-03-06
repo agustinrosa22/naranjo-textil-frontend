@@ -15,7 +15,7 @@ function App() {
        <Route path='/create' element={ <ProductForm />} />
        <Route path="/detail/:id" element={ <Detail />} />
       </Routes>
-      <Footer/>
+      {/* <Footer/> */}
     </div>
   );
 }
