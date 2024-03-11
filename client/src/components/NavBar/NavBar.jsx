@@ -2,6 +2,8 @@ import React from "react";
 import styles from './NavBar.module.css'
 import { Link, NavLink } from "react-router-dom";
 import Logo from '../../assets/logoNavBar.png';
+import SearchBar from "../searchBar/searchbar";
+
 
 const NavBar = ()=> {
     return(
@@ -10,12 +12,7 @@ const NavBar = ()=> {
             <Link to='/'>
             <img src={Logo} alt="Naranjo Diseño e Interiores" className={styles.logo}/>
             </Link>
-            <div className={styles.searchBar}>
-                    <input type="text" placeholder="Buscar..." className={styles.input} />
-                    <button className={styles.searchButton}>
-                        <i className="fas fa-search">buscar</i>
-                    </button>
-                </div>
+            <SearchBar />
                 <NavLink to='/balances' className={styles.linkbalance} >
                     <h2>Filtros</h2>
                 </NavLink>

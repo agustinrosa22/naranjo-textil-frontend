@@ -1,0 +1,29 @@
+.searchBar {
+    display: flex;
+    align-items: center;
+}
+
+.input {
+    flex: 1;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-right: 8px;
+}
+
+.searchButton {
+    background-color: #c5763d;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 8px;
+    cursor: pointer;
+}
+
+.searchButton:hover {
+    background-color: #e09056;
+}
+
+.searchButton i {
+    margin-right: 4px;
+}

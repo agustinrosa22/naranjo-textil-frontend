@@ -1,6 +1,7 @@
 import { 
     GET_PRODUCTS,
     CREATE_PRODUCT,
+    SEARCH_PRODUCTS,
  } from "./actionTypes";
 
  const initialState = {
@@ -18,6 +19,12 @@ switch(action.type) {
               ...state,
               productList: [...state.productList, action.payload],
             };
+            case SEARCH_PRODUCTS:
+                return {
+                    ...state,
+                    productList: action.payload
+                };
+            
         default:
             return state;
     }

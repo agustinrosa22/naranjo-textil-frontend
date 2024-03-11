@@ -1,7 +1,8 @@
 import axios from 'axios'
 import {
     GET_PRODUCTS,
-    CREATE_PRODUCT
+    CREATE_PRODUCT,
+    SEARCH_PRODUCTS 
 } from './actionTypes'
 
 export const getProducts = () => {
@@ -31,3 +32,18 @@ export const createProduct = (productData) => {
       }
     };
   };
+
+  export const searchProducts = (productName) => {
+    return async function (dispatch) {
+        try {
+            const response = await axios.get(`/products/name/${productName}`);
+            const products = response.data.data; // Acceder a los datos específicos de la respuesta
+            return dispatch({
+                type: SEARCH_PRODUCTS,
+                payload: products, // Utilizar los datos de los productos como payload
+            });
+        } catch (error) {
+            console.error('Error searching products:', error);
+        }
+    };
+};
