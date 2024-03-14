@@ -12,14 +12,15 @@ const ProductForm = () => {
     nombreProducto: '',
     productoId:'',
     image: '',
-    medidas: '',
+    medidas: { alto: "", ancho: "" },
     proveedor: '',
     proveedorId: '',
-    cantidad: 0,
+    cantidad: "",
     fecha: null,
-    costo: 0,
-    regPrevio: 0,
-    costoPrevio: 0,
+    costo: "",
+    regPrevio:"",
+    costoPrevio: "",
+    tipo: "",
 
     // Agrega las demás propiedades del producto según tu modelo
   });
@@ -30,6 +31,17 @@ const ProductForm = () => {
       [e.target.name]: e.target.value,
     });
   };
+  const handleMedidasChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      medidas: {
+        ...formData.medidas,
+        [name]: value
+      }
+    });
+  };
+  
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -76,14 +88,24 @@ const ProductForm = () => {
       </label>
       <label>
         Medidas:
-        <input
-          className={styles.input}
-          placeholder='Medidas'
-          type="text"
-          name="medidas"
-          value={formData.medidas}
-          onChange={handleChange}
-        />
+        <div>
+  <input
+    className={styles.input}
+    placeholder='Alto cm'
+    type="number"
+    name="alto"
+    value={formData.medidas.alto}
+    onChange={handleMedidasChange}
+  />
+  <input
+    className={styles.input}
+    placeholder='Ancho cm'
+    type="number"
+    name="ancho"
+    value={formData.medidas.ancho}
+    onChange={handleMedidasChange}
+  />
+</div>
       </label>
       <label>
         Proveedor:
@@ -156,6 +178,28 @@ const ProductForm = () => {
             value={formData.costo}
             onChange={handleChange}
           />
+           <div>
+        <label htmlFor="tipo">Tipo:</label>
+        <select
+          id="tipo"
+          name="tipo"
+          value={formData.tipo}
+          onChange={handleChange}
+        >
+          <option value="">Seleccione un tipo</option>
+          <option value="ALGODON">Algodón</option>
+          <option value="YUTE">Yute</option>
+          <option value="SINTETICA">Sintética</option>
+          <option value="YUTE + ALGODON">Yute + Algodón</option>
+          <option value="LANA">Lana</option>
+          <option value="CUERO">Cuero</option>
+          <option value="SEAGRASS">Seagrass</option>
+          <option value="ROLLER BLACKOUT">Roller Blackout</option>
+          <option value="ROLLER POLIESTER">Roller Poliéster</option>
+          <option value="BANDAS VERTICALES COZUMEL">Bandas Verticales Cozumel</option>
+          <option value="BANDAS VERTICALES VERDANA">Bandas Verticales Verdana</option>
+        </select>
+      </div>
         </label>
       <button type="submit" className={styles.submitButton}>Crear Producto</button>
     </form>

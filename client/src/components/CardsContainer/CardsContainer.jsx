@@ -17,7 +17,7 @@ const CardsContainer = () => {
 
     return (
         <div className={styles.container}>
-            {productList.map(({productoId, nombreProducto, image, medidas, proveedor, proveedorId, cantidad, fecha, costo, regPrevio, costoPrevio, id}) => (
+            {productList.map(({productoId, nombreProducto, image, medidas, proveedor, proveedorId, cantidad, fecha, costo, regPrevio, costoPrevio, id, tipo, clase}) => (
                 <Card
                     key={id}
                     id={id}
@@ -32,6 +32,8 @@ const CardsContainer = () => {
                     costo={costo}
                     regPrevio={regPrevio}
                     costoPrevio={costoPrevio}
+                    tipo={tipo}
+                    clase={clase}
                     className={styles.card}
                 />
             ))}
