@@ -15,8 +15,7 @@ const Detail = () => {
   const [showQR, setShowQR] = useState(false);
   const [costoQR, setCostoQR] = useState('');
   const [downloadingQR, setDownloadingQR] = useState(false);
-
-  
+  const [cart, setCart] = useState([]);
   const [product, setProduct] = useState({});
 
   useEffect(() => {
@@ -35,11 +34,17 @@ const Detail = () => {
     console.log('Producto vendido');
   };
 
+  // const handleBarcodeClick = () => {
+  //   // console.log('Valor del costo:', product.costo);
+  //   // console.log('Estado de showQR:', showQR);
+  //   setShowQR(true);
+  //   setCostoQR("costo:" + " $" +  product.costo);
+  // };
+
   const handleBarcodeClick = () => {
-    // console.log('Valor del costo:', product.costo);
-    // console.log('Estado de showQR:', showQR);
     setShowQR(true);
-    setCostoQR("costo:" + " $" +  product.costo);
+    const qrValue = `http://localhost:3000/detail/${id}`;
+    setCostoQR(qrValue);
   };
   
   const handleDownloadQR = () => {
@@ -64,6 +69,22 @@ const Detail = () => {
       // Realizar la búsqueda nuevamente si no hay resultados
       // Puedes implementar la lógica de búsqueda aquí o llamar a la función que realiza la búsqueda
     }
+  };
+
+  const addToCart = () => {
+     // Obtener el carrito actual del almacenamiento local
+  const currentCart = JSON.parse(localStorage.getItem('cart')) || [];
+
+  // Agregar el nuevo producto al carrito existente
+  const updatedCart = [...currentCart, product];
+
+  // Guardar el carrito actualizado en el almacenamiento local
+  localStorage.setItem('cart', JSON.stringify(updatedCart));
+
+  // Actualizar el estado del carrito en el componente
+  setCart(updatedCart);
+
+  console.log(updatedCart);
   };
 
   return (
@@ -92,6 +113,9 @@ const Detail = () => {
         </Link>
         <button onClick={handleBarcodeClick} className={styles.barcodeButton}>
           Código de QR
+        </button>
+        <button onClick={addToCart} className={styles.addToCartButton}>
+          Agregar al Carrito
         </button>
         <div id="qr-code-container">
   {showQR && <QRCode value={costoQR} />}

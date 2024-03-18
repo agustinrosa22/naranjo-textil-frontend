@@ -22,6 +22,10 @@ const NavBar = ()=> {
             <NavLink to='/balances' className={styles.linkbalance} >
                     <h2>Balances</h2>
                 </NavLink>
+
+                <NavLink to='/carrito' className={styles.linkbalance} >
+                    <h2>Carrito</h2>
+                </NavLink>
         </nav>
         </div>
     )
