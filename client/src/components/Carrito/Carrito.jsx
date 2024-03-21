@@ -1,20 +1,20 @@
 import React, { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { sellProduct } from '../../redux/actions';
 
 const CartView = () => {
   const [cart, setCart] = useState(JSON.parse(localStorage.getItem('cart')) || []);
+  const dispatch = useDispatch();
 
-  // Función para eliminar un producto del carrito
   const removeFromCart = (productId) => {
     const updatedCart = cart.filter(item => item.id !== productId);
     setCart(updatedCart);
     localStorage.setItem('cart', JSON.stringify(updatedCart));
   };
 
-  // Función para manejar cambios en el costo o descuento
   const handleCostChange = (productId, newCost) => {
     const updatedCart = cart.map(item => {
       if (item.id === productId) {
-        // Calcular el nuevo costo editado con el descuento aplicado
         const editedCost = parseFloat(newCost) || item.costo;
         return { ...item, editedCost };
       }
@@ -23,16 +23,24 @@ const CartView = () => {
     setCart(updatedCart);
   };
 
-  // Función para limpiar el carrito
-  const clearCart = () => {
-    setCart([]);
-    localStorage.removeItem('cart');
-  };
+  const handlePurchase = (productId) => {
+    const product = cart.find(item => item.id === productId);
+    if (!product) {
+      console.error('Producto no encontrado en el carrito');
+      return;
+    }
 
-  // Efecto para guardar el carrito en el almacenamiento local
-  useEffect(() => {
-    localStorage.setItem('cart', JSON.stringify(cart));
-  }, [cart]);
+    const saleData = {
+      productId: product.id,
+      userId: 1, // Aquí debes obtener el ID del usuario de alguna manera
+      cantidad: 1, // Por ahora, supongamos que siempre se compra solo una unidad de cada producto
+      costo: product.editedCost || product.costo,
+      vendedor: product.vendedor || '',
+      comentario: product.comentario || ''
+    };
+
+    dispatch(sellProduct(saleData));
+  };
 
   return (
     <div>
@@ -45,17 +53,18 @@ const CartView = () => {
             <div key={product.id}>
               <img src={product.image} alt="" />
               <p>{product.nombreProducto} - ${product.editedCost || product.costo}</p>
-           
+              
+              
               <input
                 type="number"
                 placeholder="Descuento (%)"
                 onChange={(e) => handleCostChange(product.id, product.costo * (1 - parseFloat(e.target.value) / 100))}
               />
+
               <button onClick={() => removeFromCart(product.id)}>Eliminar</button>
+              <button onClick={() => handlePurchase(product.id)}>Finalizar Compra</button>
             </div>
           ))}
-          <button onClick={clearCart}>Limpiar Carrito</button>
-          <button>Finalizar Compra</button>
         </div>
       )}
     </div>

@@ -3,12 +3,17 @@ import {
     CREATE_PRODUCT,
     SEARCH_PRODUCTS,
     EDIT_PRODUCT_SUCCESS, 
-    EDIT_PRODUCT_FAILURE
+    EDIT_PRODUCT_FAILURE,
+    SELL_PRODUCT_REQUEST,
+    SELL_PRODUCT_SUCCESS,
+    SELL_PRODUCT_FAILURE,
  } from "./actionTypes";
 
  const initialState = {
     productList: [],
     error: null,
+    saleData: null,
+    loading: false,
   };
 const rootReducer = (state = initialState, action) => {
 switch(action.type) {
@@ -39,6 +44,24 @@ switch(action.type) {
                       product: null,
                       error: action.payload,
                     };
+                    case SELL_PRODUCT_REQUEST:
+                      return {
+                        ...state,
+                        loading: true,
+                        error: null,
+                      };
+                    case SELL_PRODUCT_SUCCESS:
+                      return {
+                        ...state,
+                        loading: false,
+                        saleData: action.payload,
+                      };
+                    case SELL_PRODUCT_FAILURE:
+                      return {
+                        ...state,
+                        loading: false,
+                        error: action.payload,
+                      };
         default:
             return state;
     }

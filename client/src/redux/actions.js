@@ -4,7 +4,10 @@ import {
     CREATE_PRODUCT,
     SEARCH_PRODUCTS,
     EDIT_PRODUCT_SUCCESS, 
-    EDIT_PRODUCT_FAILURE
+    EDIT_PRODUCT_FAILURE,
+    SELL_PRODUCT_FAILURE,
+    SELL_PRODUCT_REQUEST,
+    SELL_PRODUCT_SUCCESS,
 } from './actionTypes'
 
 export const getProducts = () => {
@@ -73,3 +76,15 @@ const editProductFailure = (error) => ({
   type: EDIT_PRODUCT_FAILURE,
   payload: error,
 });
+
+
+export const sellProduct = (saleData) => async (dispatch) => {
+  try {
+    const response = await axios.post('/sell', saleData);
+    dispatch({ type: 'SELL_PRODUCT_SUCCESS', payload: response.data });
+    console.log(response.data);
+  } catch (error) {
+    dispatch({ type: 'SELL_PRODUCT_FAILURE', payload: error.message });
+    console.error('Error selling product:', error);
+  }
+};
