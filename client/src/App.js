@@ -8,22 +8,28 @@ import { Routes,Route, useLocation } from 'react-router-dom';
 import EditProduct from './views/EditPorduct/EditProduct';
 import Precio from './views/Precio/Precio';
 import CartView from './components/Carrito/Carrito';
-
+import Login from './views/Login/Login';
+import { Navigate } from 'react-router-dom';
 
 
 function App() {
   const location = useLocation();
+  const isLoginPage = location.pathname === '/';
   const isPrecioPage = location.pathname.startsWith("/precio");
+  const user = JSON.parse(localStorage.getItem('user'));
+console.log(user);
+
   return (
     <div className="App">
-                 {!isPrecioPage && <NavBar />}
+                  {!isLoginPage && !isPrecioPage && <NavBar />}
       <Routes> 
-       <Route path='/' element={ <Home />} />
-       <Route path='/create' element={ <ProductForm />} />
-       <Route path="/detail/:id" element={ <Detail />} />
-       <Route path="/edit/:id" element={ <EditProduct />} />
+      <Route path='/' element={<Login />} />
+       <Route path='/home' element={user ? <Home /> :  <Navigate to="/" />}  />
+       <Route path='/create' element={user ? <ProductForm />:  <Navigate to="/" />} />
+       <Route path="/detail/:id" element={user ?  <Detail />:  <Navigate to="/" />} />
+       <Route path="/edit/:id" element={ user ? <EditProduct />: <Navigate to="/" />} />
        <Route path="/precio/:id" element={ <Precio />} />
-       <Route path="/carrito" element={ <CartView />} />
+       <Route path="/carrito" element={ user ? <CartView />: <Navigate to="/" />} />
       </Routes>
       {/* <Footer/> */}
     </div>

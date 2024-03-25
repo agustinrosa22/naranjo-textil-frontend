@@ -8,6 +8,10 @@ import {
     SELL_PRODUCT_FAILURE,
     SELL_PRODUCT_REQUEST,
     SELL_PRODUCT_SUCCESS,
+    LOGIN_REQUEST, 
+    LOGIN_SUCCESS, 
+    LOGIN_FAILURE, 
+    LOGOUT,
 } from './actionTypes'
 
 export const getProducts = () => {
@@ -88,3 +92,38 @@ export const sellProduct = (saleData) => async (dispatch) => {
     console.error('Error selling product:', error);
   }
 };
+
+export const loginRequest = (username, password) => {
+  return async (dispatch) => {
+    try {
+      const response = await axios.post('/login', { username, password });
+      const data = response.data;
+      if (data.access) {
+        dispatch(loginSuccess(data.user));
+      } else {
+        dispatch(loginFailure("Error: acceso denegado"));
+      }
+    } catch (error) {
+      dispatch(loginFailure(error.message));
+    }
+  };
+};
+
+export const loginSuccess = (user) => {
+  // Guardar datos del usuario en localStorage
+  localStorage.setItem('user', JSON.stringify(user));
+  
+  // Actualizar el estado global con los datos del usuario
+  return {
+    type: LOGIN_SUCCESS,
+    payload: user
+  };
+};
+export const loginFailure = (error) => ({
+  type: LOGIN_FAILURE,
+  payload: error
+});
+
+export const logout = () => ({
+  type: LOGOUT
+});

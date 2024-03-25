@@ -7,6 +7,10 @@ import {
     SELL_PRODUCT_REQUEST,
     SELL_PRODUCT_SUCCESS,
     SELL_PRODUCT_FAILURE,
+    LOGIN_REQUEST, 
+    LOGIN_SUCCESS, 
+    LOGIN_FAILURE, 
+    LOGOUT
  } from "./actionTypes";
 
  const initialState = {
@@ -14,6 +18,7 @@ import {
     error: null,
     saleData: null,
     loading: false,
+    user: null,
   };
 const rootReducer = (state = initialState, action) => {
 switch(action.type) {
@@ -62,6 +67,32 @@ switch(action.type) {
                         loading: false,
                         error: action.payload,
                       };
+                      case LOGIN_REQUEST:
+                            return {
+                        ...state,
+                        loading: true,
+                        error: null
+                      };
+                      case LOGIN_SUCCESS:
+                        return {
+                          ...state,
+                          user: action.payload,
+                          loading: false,
+                          error: null
+                        };
+                      case LOGIN_FAILURE:
+                        return {
+                          ...state,
+                          loading: false,
+                          error: action.payload
+                        };
+                      case LOGOUT:
+                        return {
+                          ...state,
+                          user: null,
+                          loading: false,
+                          error: null
+                        };
         default:
             return state;
     }

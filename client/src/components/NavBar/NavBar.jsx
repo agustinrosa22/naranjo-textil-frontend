@@ -9,7 +9,7 @@ const NavBar = ()=> {
     return(
         <div className={styles.navContainer}>
         <nav className={styles.navbar}>
-            <Link to='/'>
+            <Link to='/home'>
             <img src={Logo} alt="Naranjo Diseño e Interiores" className={styles.logo}/>
             </Link>
             <SearchBar />
