@@ -8,6 +8,7 @@ import axios from 'axios';
 const EditProduct = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
+  const user = useSelector(state => state.user);
   const [formData, setFormData] = useState({
     nombreProducto: '',
     medidas: '',
@@ -93,6 +94,7 @@ const EditProduct = () => {
       name="nombreProducto"
       value={formData.nombreProducto}
       onChange={handleChange}
+      disabled={user.tipo !== 'Admin'}
     />
   </label>
   <label>
@@ -104,6 +106,7 @@ const EditProduct = () => {
       name="productoId"
       value={formData.productoId}
       onChange={handleChange}
+      disabled={user.tipo !== 'Admin'}
     />
   </label>
   <label>
@@ -114,6 +117,7 @@ const EditProduct = () => {
       name="image"
       value={formData.image}
       onChange={handleChange}
+      disabled={user.tipo !== 'Admin'}
     />
   </label>
   <label>
@@ -126,6 +130,7 @@ const EditProduct = () => {
         name="alto"
         value={formData.medidas?.alto}
         onChange={handleMedidasChange}
+        disabled={user.tipo !== 'Admin'}
       />
       <input
         className={styles.input}
@@ -134,6 +139,7 @@ const EditProduct = () => {
         name="ancho"
         value={formData.medidas?.ancho}
         onChange={handleMedidasChange}
+        disabled={user.tipo !== 'Admin'}
       />
     </div>
   </label>
@@ -146,6 +152,7 @@ const EditProduct = () => {
       name="proveedor"
       value={formData.proveedor}
       onChange={handleChange}
+      disabled={user.tipo !== 'Admin'}
     />
   </label>
   <label>
@@ -157,6 +164,7 @@ const EditProduct = () => {
       name="proveedorId"
       value={formData.proveedorId}
       onChange={handleChange}
+      disabled={user.tipo !== 'Admin'}
     />
   </label>
   <label>
@@ -167,6 +175,7 @@ const EditProduct = () => {
       name="cantidad"
       value={formData.cantidad}
       onChange={handleChange}
+      
     />
   </label>
   <label>
@@ -177,6 +186,7 @@ const EditProduct = () => {
       name="fecha"
       value={formData.fecha}
       onChange={handleChange}
+      disabled={user.tipo !== 'Admin'}
     />
   </label>
   <label>
@@ -187,6 +197,7 @@ const EditProduct = () => {
       name="regPrevio"
       value={formData.regPrevio}
       onChange={handleChange}
+      disabled={user.tipo !== 'Admin'}
     />
   </label>
   <label>
@@ -197,6 +208,7 @@ const EditProduct = () => {
       name="costoPrevio"
       value={formData.costoPrevio}
       onChange={handleChange}
+      disabled={user.tipo !== 'Admin'}
     />
   </label>
   <label>
@@ -207,6 +219,7 @@ const EditProduct = () => {
       name="costo"
       value={formData.costo}
       onChange={handleChange}
+      disabled={user.tipo !== 'Admin'}
     />
   </label>
   <div>
@@ -216,6 +229,7 @@ const EditProduct = () => {
       name="tipo"
       value={formData.tipo}
       onChange={handleChange}
+      disabled={user.tipo !== 'Admin'}
     >
       <option value="">Seleccione un tipo</option>
       <option value="ALGODON">Algodón</option>
@@ -238,6 +252,7 @@ const EditProduct = () => {
       name="clase"
       value={formData.clase}
       onChange={handleChange}
+      disabled={user.tipo !== 'Admin'}
     >
 <option value="">Seleccione un tipo</option>
     <option value="ALMOHADONES">Almohadones</option>

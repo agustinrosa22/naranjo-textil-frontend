@@ -80,6 +80,9 @@ const Login = () => {
             </div>
             <button className={style.buttonSubmit} type="submit">Login</button>
           </form>
+         {/* Mostrar mensaje de error */}
+          {/* Mostrar mensaje de credenciales inválidas */}
+          {error === 'Request failed with status code 401' && <p className={style.error}>Credenciales inválidas</p>}
         </div>
       </div>
     </div>
