@@ -86,13 +86,11 @@ switch(action.type) {
                           loading: false,
                           error: action.payload
                         };
-                      case LOGOUT:
-                        return {
-                          ...state,
-                          user: null,
-                          loading: false,
-                          error: null
-                        };
+                        case LOGOUT:
+                          return {
+                            ...state,
+                            user: null, // Limpiar los datos del usuario al hacer logout
+                          };
         default:
             return state;
     }

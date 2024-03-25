@@ -1,5 +1,5 @@
 .navContainer{
-    background-color: white;
+    background-color: rgb(255, 255, 255);
     display: flex;
     justify-content: space-between; /* Coloca el espacio disponible entre los elementos */
     align-items: center; /* Centra verticalmente los elementos */

@@ -124,6 +124,12 @@ export const loginFailure = (error) => ({
   payload: error
 });
 
-export const logout = () => ({
-  type: LOGOUT
-});
+export const logout = () => {
+  // Limpiar los datos del usuario en el almacenamiento local
+  localStorage.removeItem('user');
+
+  // Devolver la acción LOGOUT
+  return {
+    type: LOGOUT,
+  };
+};
