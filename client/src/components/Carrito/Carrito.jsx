@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState} from 'react';
 import { useDispatch } from 'react-redux';
 import { sellProduct } from '../../redux/actions';
+import style from './Carrito.module.css'
 
 const CartView = () => {
   const [cart, setCart] = useState(JSON.parse(localStorage.getItem('cart')) || []);
@@ -79,52 +80,51 @@ const CartView = () => {
   };
 
   return (
-    <div>
-      <h2>Carrito de Compras</h2>
-      {cart.length === 0 ? (
-        <p>El carrito está vacío</p>
-      ) : (
-        <div>
-          {cart.map(product => (
-            <div key={product.id}>
-              <img src={product.image} alt="" />
-              <p>{product.nombreProducto} - ${product.editedCost || product.costo}</p>
-              
+    <div className={style.cartContainer}>
+    <h2>Carrito de Compras</h2>
+    {cart.length === 0 ? (
+      <p>El carrito está vacío</p>
+    ) : (
+      <div>
+        {cart.map(product => (
+          <div className={style.productItem} key={product.id}>
+            <img className={style.productImage} src={product.image} alt="" />
+            <div className={style.productInfo}>
+              <p>{product.nombreProducto} - <span className={style.productCost}>${product.editedCost || product.costo}</span></p>
               <input
+                className={style.inputField}
                 type="number"
                 placeholder="Descuento (%)"
                 onChange={(e) => handleCostChange(product.id, product.costo * (1 - parseFloat(e.target.value) / 100))}
               />
-
               <input
+                className={style.inputField}
                 type="number"
                 placeholder="Cantidad"
                 value={product.cantidad}
                 onChange={(e) => handleQuantityChange(product.id, parseInt(e.target.value))}
               />
-
               <input
+                className={style.inputField}
                 type="text"
                 placeholder="Vendedor"
                 value={product.vendedor || ''}
                 onChange={(e) => handleSellerChange(product.id, e.target.value)}
               />
-
-              <input
-                type="text"
+               <textarea
+                className={style.textareaField}
                 placeholder="Comentario"
                 value={product.comentario || ''}
                 onChange={(e) => handleCommentChange(product.id, e.target.value)}
               />
-
-              <button onClick={() => removeFromCart(product.id)}>Eliminar</button>
-              {/* <button onClick={() => handlePurchase(product.id)}>Finalizar Compra</button> */}
+              <button className={style.button} onClick={() => removeFromCart(product.id)}>Eliminar</button>
             </div>
-          ))}
-        </div>
-      )}
-       <button onClick={handleFinalizeAllPurchases}>Finalizar Todas las Compras</button>
-    </div>
+          </div>
+        ))}
+      </div>
+    )}
+    <button className={style.button} onClick={handleFinalizeAllPurchases}>Finalizar Todas las Compras</button>
+  </div>
     
   );
 };

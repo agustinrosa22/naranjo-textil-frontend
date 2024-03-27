@@ -10,11 +10,13 @@ import {
     LOGIN_REQUEST, 
     LOGIN_SUCCESS, 
     LOGIN_FAILURE, 
-    LOGOUT
+    LOGOUT,
+    FILTER_PRODUCTS_SUCCESS
  } from "./actionTypes";
 
  const initialState = {
     productList: [],
+    filteredProductList: [],
     error: null,
     saleData: null,
     loading: false,
@@ -91,6 +93,11 @@ switch(action.type) {
                             ...state,
                             user: null, // Limpiar los datos del usuario al hacer logout
                           };
+                          case FILTER_PRODUCTS_SUCCESS:
+                            return {
+                                ...state,
+                                productList: action.payload,
+                            };
         default:
             return state;
     }

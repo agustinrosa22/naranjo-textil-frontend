@@ -17,7 +17,7 @@ function App() {
   const isLoginPage = location.pathname === '/';
   const isPrecioPage = location.pathname.startsWith("/precio");
   const user = JSON.parse(localStorage.getItem('user'));
-console.log(user);
+// console.log(user);
 
   return (
     <div className="App">

@@ -5,13 +5,12 @@ import {
     SEARCH_PRODUCTS,
     EDIT_PRODUCT_SUCCESS, 
     EDIT_PRODUCT_FAILURE,
-    SELL_PRODUCT_FAILURE,
-    SELL_PRODUCT_REQUEST,
-    SELL_PRODUCT_SUCCESS,
-    LOGIN_REQUEST, 
     LOGIN_SUCCESS, 
     LOGIN_FAILURE, 
     LOGOUT,
+    FILTER_PRODUCTS_REQUEST,
+    FILTER_PRODUCTS_SUCCESS,
+    FILTER_PRODUCTS_FAILURE 
 } from './actionTypes'
 
 export const getProducts = () => {
@@ -63,7 +62,7 @@ export const editProduct = (id, productData) => {
     try {
       const response = await axios.put(`/product/${id}`, productData);
       dispatch(editProductSuccess(response.data));
-      window.location.href = '/';
+      window.location.href = '/home';
       alert('Producto editado exitosamente');
     } catch (error) {
       dispatch(editProductFailure(error.message));
@@ -132,4 +131,29 @@ export const logout = () => {
   return {
     type: LOGOUT,
   };
+};
+
+export const filterProductsRequest = () => ({
+  type: FILTER_PRODUCTS_REQUEST,
+});
+
+export const filterProductsSuccess = (filteredProducts) => ({
+  type: FILTER_PRODUCTS_SUCCESS,
+  payload: filteredProducts,
+});
+
+export const filterProductsFailure = (error) => ({
+  type: FILTER_PRODUCTS_FAILURE,
+  payload: error,
+});
+
+export const filterProducts = (filters) => async (dispatch) => {
+  dispatch(filterProductsRequest());
+  try {
+    const response = await axios.get('/products/filter', { params: filters });
+    dispatch(filterProductsSuccess(response.data));
+    // console.log(response.data)
+  } catch (error) {
+    dispatch(filterProductsFailure(error.message));
+  }
 };

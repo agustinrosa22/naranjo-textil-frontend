@@ -4,6 +4,7 @@
     justify-content: space-between; /* Coloca el espacio disponible entre los elementos */
     align-items: center; /* Centra verticalmente los elementos */
     padding: 20px; /* Ajusta el relleno según tus preferencias */
+    border: 1px solid black;
 }
 .navbar{
     display: flex;
