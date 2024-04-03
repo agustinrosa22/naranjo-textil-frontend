@@ -76,7 +76,7 @@ const Detail = () => {
   const currentCart = JSON.parse(localStorage.getItem('cart')) || [];
 
   // Agregar el nuevo producto al carrito existente
-  const updatedCart = [...currentCart, product];
+  const updatedCart = [...currentCart, { ...product, cantidad: 1 }];
 
   // Guardar el carrito actualizado en el almacenamiento local
   localStorage.setItem('cart', JSON.stringify(updatedCart));

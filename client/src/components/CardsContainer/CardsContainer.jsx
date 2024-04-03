@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux';
-import Card from "../Cards/Card";
+import Card from "../cards/Card";
 import { getProducts } from "../../redux/actions";
 import styles from './CardsContainer.module.css';
 import { format } from 'date-fns';

@@ -27,12 +27,17 @@ const CartView = () => {
   const handleQuantityChange = (productId, newQuantity) => {
     const updatedCart = cart.map(item => {
       if (item.id === productId) {
-        return { ...item, cantidad: newQuantity };
+        // Obtener la cantidad máxima disponible para el producto
+        const maxQuantity = item.cantidad;
+        // Establecer la nueva cantidad como máximo de 1 y el máximo disponible
+        const updatedQuantity = Math.min(Math.max(1, newQuantity), maxQuantity);
+        return { ...item, cantidad: updatedQuantity };
       }
       return item;
     });
     setCart(updatedCart);
   };
+  
 
   const handleSellerChange = (productId, newSeller) => {
     const updatedCart = cart.map(item => {
@@ -65,7 +70,7 @@ const CartView = () => {
       productId: product.id,
       userId: 1, // Aquí debes obtener el ID del usuario de alguna manera
       cantidad: product.cantidad,
-      costo: product.editedCost || product.costo,
+      costo: product.editedCost*product.cantidad || product.costo*product.cantidad,
       vendedor: product.vendedor || '',
       comentario: product.comentario || ''
     };
@@ -90,7 +95,7 @@ const CartView = () => {
           <div className={style.productItem} key={product.id}>
             <img className={style.productImage} src={product.image} alt="" />
             <div className={style.productInfo}>
-              <p>{product.nombreProducto} - <span className={style.productCost}>${product.editedCost || product.costo}</span></p>
+              <p>{product.nombreProducto} - <span className={style.productCost}>${product.editedCost*product.cantidad || product.costo*product.cantidad}</span></p>
               <input
                 className={style.inputField}
                 type="number"
