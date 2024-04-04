@@ -18,6 +18,7 @@
   
   .buttonContainer {
     display: flex;
+    padding: 5px;
     justify-content: center;
   }
   
