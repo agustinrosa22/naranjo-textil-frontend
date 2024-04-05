@@ -43,7 +43,7 @@ const Detail = () => {
 
   const handleBarcodeClick = () => {
     setShowQR(true);
-    const qrValue = `http://localhost:3000/detail/${id}`;
+    const qrValue = `http://localhost:3000/precio/${id}`;
     setCostoQR(qrValue);
   };
   

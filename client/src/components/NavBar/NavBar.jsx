@@ -29,7 +29,7 @@ const NavBar = ()=> {
             <NavLink to='/create' className={styles.link} >
             <h2>Agregar</h2>
             </NavLink>
-            <NavLink to='/balances' className={styles.linkbalance} >
+            <NavLink to='/balance' className={styles.linkbalance} >
                     <h2>Balances</h2>
                 </NavLink>
 

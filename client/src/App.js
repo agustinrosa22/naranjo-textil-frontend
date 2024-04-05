@@ -9,6 +9,7 @@ import EditProduct from './views/EditPorduct/EditProduct';
 import Precio from './views/Precio/Precio';
 import CartView from './components/Carrito/Carrito';
 import Login from './views/Login/Login';
+import TransactionView from './views/Balance/Balance';
 import { Navigate } from 'react-router-dom';
 
 
@@ -30,6 +31,7 @@ function App() {
        <Route path="/edit/:id" element={ user ? <EditProduct />: <Navigate to="/" />} />
        <Route path="/precio/:id" element={ <Precio />} />
        <Route path="/carrito" element={ user ? <CartView />: <Navigate to="/" />} />
+       <Route path="/balance" element={ user ? <TransactionView />: <Navigate to="/" />} />
       </Routes>
       {/* <Footer/> */}
     </div>

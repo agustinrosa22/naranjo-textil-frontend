@@ -72,9 +72,14 @@ const CartView = () => {
       cantidad: product.cantidad,
       costo: product.editedCost*product.cantidad || product.costo*product.cantidad,
       vendedor: product.vendedor || '',
-      comentario: product.comentario || ''
+      comentario: product.comentario || '',
+      nombreProducto: product.nombreProducto,
+      image: product.image,
+      tipo: product.tipo,
+      clase: product.clase,
+      costoPrevio: product.costoPrevio,
     };
-
+    console.log(saleData);
     dispatch(sellProduct(saleData));
   };
 

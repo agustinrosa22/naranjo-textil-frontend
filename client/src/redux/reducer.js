@@ -11,18 +11,29 @@ import {
     LOGIN_SUCCESS, 
     LOGIN_FAILURE, 
     LOGOUT,
-    FILTER_PRODUCTS_SUCCESS
+    FILTER_PRODUCTS_SUCCESS,
+    GET_ALL_TRANSACTIONS_REQUEST,
+    GET_ALL_TRANSACTIONS_SUCCESS,
+    GET_ALL_TRANSACTIONS_FAILURE,
+    GET_PRODUCT_BY_ID_REQUEST,
+    GET_PRODUCT_BY_ID_SUCCESS,
+    GET_PRODUCT_BY_ID_FAILURE,
+    GET_TRANSACTIONS_AND_PRODUCT_REQUEST,
+    GET_TRANSACTIONS_AND_PRODUCT_SUCCESS,
+    GET_TRANSACTIONS_AND_PRODUCT_FAILURE,
  } from "./actionTypes";
 
  const initialState = {
     productList: [],
     filteredProductList: [],
+    transactions: [],
     error: null,
     saleData: null,
     loading: false,
     user: null,
+    product: null,
   };
-const rootReducer = (state = initialState, action) => {
+  const rootReducer = (state = initialState, action) => {
 switch(action.type) {
     case GET_PRODUCTS:
         return {
@@ -98,7 +109,64 @@ switch(action.type) {
                                 ...state,
                                 productList: action.payload,
                             };
+                            case GET_ALL_TRANSACTIONS_REQUEST:
+                              return {
+                                ...state,
+                                loading: true,
+                                error: null,
+                              };
+                            case GET_ALL_TRANSACTIONS_SUCCESS:
+                              return {
+                                ...state,
+                                transactions: action.payload,
+                                loading: false,
+                              };
+                            case GET_ALL_TRANSACTIONS_FAILURE:
+                              return {
+                                ...state,
+                                loading: false,
+                                error: action.payload,
+                              };
+                              case GET_PRODUCT_BY_ID_REQUEST:
+                                return {
+                                  ...state,
+                                  loading: true,
+                                  error: null,
+                                  product: null,
+                                };
+                              case GET_PRODUCT_BY_ID_SUCCESS:
+                                return {
+                                  ...state,
+                                  loading: false,
+                                  product: action.payload,
+                                };
+                              case GET_PRODUCT_BY_ID_FAILURE:
+                                return {
+                                  ...state,
+                                  loading: false,
+                                  error: action.payload,
+                                };
+                                case GET_TRANSACTIONS_AND_PRODUCT_REQUEST:
+                                  return {
+                                    ...state,
+                                    loading: true,
+                                    error: null,
+                                  };
+                                case GET_TRANSACTIONS_AND_PRODUCT_SUCCESS:
+                                  return {
+                                    ...state,
+                                    loading: false,
+                                    transactions: action.payload.transactions,
+                                    product: action.payload.product,
+                                  };
+                                case GET_TRANSACTIONS_AND_PRODUCT_FAILURE:
+                                  return {
+                                    ...state,
+                                    loading: false,
+                                    error: action.payload,
+                                  };
         default:
+         
             return state;
     }
 };

@@ -10,7 +10,16 @@ import {
     LOGOUT,
     FILTER_PRODUCTS_REQUEST,
     FILTER_PRODUCTS_SUCCESS,
-    FILTER_PRODUCTS_FAILURE 
+    FILTER_PRODUCTS_FAILURE,
+    GET_ALL_TRANSACTIONS_REQUEST,
+    GET_ALL_TRANSACTIONS_SUCCESS,
+    GET_ALL_TRANSACTIONS_FAILURE, 
+    GET_PRODUCT_BY_ID_REQUEST,
+    GET_PRODUCT_BY_ID_SUCCESS,
+    GET_PRODUCT_BY_ID_FAILURE,
+    GET_TRANSACTIONS_AND_PRODUCT_REQUEST,
+    GET_TRANSACTIONS_AND_PRODUCT_SUCCESS,
+    GET_TRANSACTIONS_AND_PRODUCT_FAILURE, 
 } from './actionTypes'
 
 export const getProducts = () => {
@@ -156,4 +165,88 @@ export const filterProducts = (filters) => async (dispatch) => {
   } catch (error) {
     dispatch(filterProductsFailure(error.message));
   }
+};
+
+export const getAllTransactions = (startDate, endDate) => {
+  return async (dispatch) => {
+    dispatch({ type: GET_ALL_TRANSACTIONS_REQUEST });
+
+    try {
+      const response = await axios.get(`/sell?startDate=${startDate}&endDate=${endDate}`);
+      dispatch({
+        type: GET_ALL_TRANSACTIONS_SUCCESS,
+        payload: response.data.transactions,
+      });
+    } catch (error) {
+      dispatch({
+        type: GET_ALL_TRANSACTIONS_FAILURE,
+        payload: error.response ? error.response.data.message : error.message,
+      });
+    }
+  };
+};
+
+
+export const getProductByIdRequest = (id) => ({
+  type: GET_PRODUCT_BY_ID_REQUEST,
+  payload: id,
+});
+
+export const getProductByIdSuccess = (product) => ({
+  type: GET_PRODUCT_BY_ID_SUCCESS,
+  payload: product,
+});
+
+export const getProductByIdFailure = (error) => ({
+  type: GET_PRODUCT_BY_ID_FAILURE,
+  payload: error,
+});
+
+export const getProductById = (id) => {
+  return async (dispatch) => {
+    dispatch(getProductByIdRequest(id));
+    try {
+      const response = await fetch(`/api/product/${id}`); // Ajusta la URL de la API según tu configuración
+      if (!response.ok) {
+        throw new Error('Failed to fetch product');
+      }
+      const data = await response.json();
+      dispatch(getProductByIdSuccess(data));
+    } catch (error) {
+      dispatch(getProductByIdFailure(error.message));
+    }
+  };
+};
+
+
+export const getTransactionsAndProduct = (startDate, endDate, productId) => {
+  return async (dispatch) => {
+    dispatch({ type: GET_TRANSACTIONS_AND_PRODUCT_REQUEST });
+
+    try {
+      // Obtener transacciones
+      const transactionsResponse = await axios.get(`/sell?startDate=${startDate}&endDate=${endDate}`);
+      const transactions = transactionsResponse.data.transactions;
+
+      // Obtener producto por id
+      const productResponse = await fetch(`/api/product/${productId}`);
+      if (!productResponse.ok) {
+        throw new Error('Failed to fetch product');
+      }
+      const product = await productResponse.json();
+
+      // Combinar transacciones y producto
+      const data = { transactions, product };
+console.log(data);
+      dispatch({
+        type: GET_TRANSACTIONS_AND_PRODUCT_SUCCESS,
+        payload: data,
+      });
+    } catch (error) {
+      dispatch({
+        type: GET_TRANSACTIONS_AND_PRODUCT_FAILURE,
+        payload: error.response ? error.response.data.message : error.message,
+      });
+    }
+  };
 };
