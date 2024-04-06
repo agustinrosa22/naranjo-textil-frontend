@@ -219,24 +219,17 @@ export const getProductById = (id) => {
 };
 
 
-export const getTransactionsAndProduct = (startDate, endDate, productId) => {
+export const getTransactionsAndProduct = (startDate, endDate, tipo, clase ) => {
   return async (dispatch) => {
     dispatch({ type: GET_TRANSACTIONS_AND_PRODUCT_REQUEST });
 
     try {
       // Obtener transacciones
-      const transactionsResponse = await axios.get(`/sell?startDate=${startDate}&endDate=${endDate}`);
+      const transactionsResponse = await axios.get(`/sell?startDate=${startDate}&endDate=${endDate}&tipo=${tipo}&clase=${clase}`);
       const transactions = transactionsResponse.data.transactions;
 
-      // Obtener producto por id
-      const productResponse = await fetch(`/api/product/${productId}`);
-      if (!productResponse.ok) {
-        throw new Error('Failed to fetch product');
-      }
-      const product = await productResponse.json();
-
       // Combinar transacciones y producto
-      const data = { transactions, product };
+      const data = { transactions };
 console.log(data);
       dispatch({
         type: GET_TRANSACTIONS_AND_PRODUCT_SUCCESS,
@@ -247,6 +240,9 @@ console.log(data);
         type: GET_TRANSACTIONS_AND_PRODUCT_FAILURE,
         payload: error.response ? error.response.data.message : error.message,
       });
-    }
+      if (error.response && error.response.status === 404) {
+        alert('Transacciones no encontradas');
+        dispatch(getTransactionsAndProduct('', '', '', '')); 
+    }}
   };
 };
