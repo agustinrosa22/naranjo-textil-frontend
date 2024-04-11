@@ -105,11 +105,10 @@ const Detail = () => {
         <button onClick={handleGoBack} className={styles.buttonback}>
           Volver
         </button>
-        <button onClick={handleSellClick} className={styles.sellButton}>
-          Vender
-        </button>
-        <Link to={`/edit/${id}`} className={styles.editButton}> {/* Agrega el botón para editar el producto */}
+        <Link to={`/edit/${id}`} > {/* Agrega el botón para editar el producto */}
+        <button className={styles.barcodeButton}>
           Editar
+        </button>
         </Link>
         <button onClick={handleBarcodeClick} className={styles.barcodeButton}>
           Código de QR

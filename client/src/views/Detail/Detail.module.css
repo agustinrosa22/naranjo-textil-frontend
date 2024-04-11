@@ -1,72 +1,59 @@
-.container{
-    display: flex;
-    padding: 1%;
-    height: 100%;
-  background-color: #D3D3D3;
-    
+.container {
+  display: flex;
+  padding: 1%;
+  height: 100%;
 }
 
-.detailcontainer{
-    background-color: #D3D3E7;
-    flex: 1;
-    padding: 20px;
+.detailcontainer {
+  flex: 1;
+  padding: 20px;
 }
-.boxImg{
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    justify-content: flex-end;
-    padding: 20px;
-    border-radius: 8px;
+
+.boxImg {
+  position: relative;
+  width: 600px; /* Tamaño predeterminado */
+  height: 500px; /* Tamaño predeterminado */
+  margin-left: auto;
+  border-radius: 8px;
+  overflow: hidden;
 }
+
+.boxImg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
 .title {
-    text-align: center;
-    color: #333;
-    font-size: 28px;
-    margin-bottom: 20px;
-  }
-  
-  h1 {
-    color: #007bff;
-    font-size: 24px;
-    margin-top: 10px;
-  }
-  
-  h2 {
-    font-size: 20px;
-    color: #333;
-    margin-top: 10px;
-  }
-  
-  p {
-    font-size: 16px;
-    color: #555;
-    margin-top: 5px;
-  }
-  
-  img {
-    max-width: 100%;
-    background-color: #f5f5f5; /* Color de fondo de la imagen */
-    border-radius: 8px;
-  }
-  
-  .buttonback {
-    background-color: #007bff;
-    color: #fff;
-    padding: 10px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    margin-top: 20px;
-  }
-  
-  .buttonback:hover {
-    background-color: #0056b3;
-  }
+  text-align: center;
+  color: #333;
+  font-size: 28px;
+  margin-bottom: 20px;
+}
 
-  .sellButton,
-.barcodeButton {
-  background-color: #28a745;
+h1 {
+  color: #007bff;
+  font-size: 24px;
+  margin-top: 10px;
+}
+
+h2 {
+  font-size: 20px;
+  color: #333;
+  margin-top: 10px;
+}
+
+p {
+  font-size: 16px;
+  color: #555;
+  margin-top: 5px;
+}
+
+.buttonback,
+.sellButton,
+.barcodeButton,
+.addToCartButton {
+  background-color: #007bff;
   color: #fff;
   padding: 10px 20px;
   border: none;
@@ -74,9 +61,77 @@
   cursor: pointer;
   margin-top: 20px;
   margin-right: 10px;
+  text-decoration: none;
+  width: 150px; /* Ancho fijo para todos los botones */
+  height: auto ;
+  display: inline-block; /* Para que ocupen el mismo espacio en línea */
 }
 
+.buttonback:hover,
 .sellButton:hover,
-.barcodeButton:hover {
-  background-color: #218838;
+.barcodeButton:hover,
+.addToCartButton:hover {
+  background-color: #0056b3;
+}
+
+.addToCartButton {
+  margin-right: 0;
+}
+
+.qr-code-container {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 10px;
+  z-index: 1000;
+}
+
+.downloadButton {
+  background-color: #007bff;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 20px;
+  text-decoration: none;
+}
+
+.downloadButton:hover {
+  background-color: #0056b3;
+}
+
+
+@media (max-width: 768px) {
+
+  .container {
+    display: flex;
+    padding: 1%;
+    height: 100%;
+    flex-direction: column;
+    
+  }
+
+  .boxImg {
+    position: relative;
+  display: flex;
+  width: 300px; /* Tamaño predeterminado */
+  height: 200px; /* Tamaño predeterminado */
+  margin: 0 auto; /* Centrar horizontalmente */
+  border-radius: 8px;
+  overflow: hidden;
+  align-items: center; /* Centrar verticalmente */
+  justify-content: center; /* Centrar horizontalmente */
+  text-align: center;
+  margin-bottom: 35px;
+  }
+  
+  .boxImg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
 }
