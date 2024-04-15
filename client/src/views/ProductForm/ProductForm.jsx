@@ -200,10 +200,28 @@ const ProductForm = () => {
           <option value="BANDAS VERTICALES VERDANA">Bandas Verticales Verdana</option>
         </select>
       </div>
+      <div>
+    <label htmlFor="tipo">Clase:</label>
+    <select
+      id="clase"
+      name="clase"
+      value={formData.clase}
+      onChange={handleChange}
+    >
+<option value="">Seleccione un tipo</option>
+    <option value="ALMOHADONES">Almohadones</option>
+    <option value="MANTAS">Mantas</option>
+    <option value="FUNDAS">Fundas</option>
+    <option value="PIE DE CAMA">Pie de cama</option>
+    <option value="BORLAS">Borlas</option>
+    <option value="MOBILIARIO">Mobiliario</option>
+    </select>
+  </div>
         </label>
       <button type="submit" className={styles.submitButton}>Crear Producto</button>
     </form>
     </div>
+    
     <img src={Logo} alt="" className={styles.img}/>
     <button onClick={() => navigate(-1)} className={styles.buttonback}>
      Volver

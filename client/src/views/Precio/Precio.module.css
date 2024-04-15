@@ -1,0 +1,49 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items:center;
+    padding: 20px;
+    margin-top: 60px;
+  }
+
+  .logo{
+    top: 20px;
+    width: 200px;
+    margin: 0; /* Elimina los márgenes externos */
+    position: absolute; /* Cambia la posición a absoluta */
+    left: 50%; /* Coloca el título en el 50% del ancho del contenedor */
+    transform: translateX(-50%); /* Centra el título */
+}
+
+  .detailcontainer {
+    flex: 1;
+  }
+  
+  .detailcontainer h2 {
+    align-items: flex-start;
+    margin-bottom: 10px;
+    font-size: 24px;
+    color: #333333;
+  }
+  
+  .detailcontainer p {
+    margin-bottom: 5px;
+    font-size: 16px;
+    color: #666666;
+  }
+  
+  .boxImg {
+    position: relative;
+    width: 400px; /* Tamaño predeterminado */
+    height: 300px; /* Tamaño predeterminado */
+
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  
+  .boxImg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  

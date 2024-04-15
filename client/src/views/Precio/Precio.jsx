@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import {  useParams } from 'react-router-dom';
 import styles from './Precio.module.css';
+import Logo from '../../assets/logoNavBar.png'
 
 
 
@@ -23,6 +24,12 @@ const Precio = () => {
 
   return (
     <div className={styles.container}>
+       <div className={styles.navContainer}>
+        <nav className={styles.navbar}>
+            <img src={Logo} alt="Naranjo Diseño e Interiores" className={styles.logo}/>
+
+        </nav>
+        </div>
       <div className={styles.detailcontainer}>
         <h2>{product.nombreProducto}</h2>
         <p>{product.medidas?.alto} x {product.medidas?.ancho}</p>
