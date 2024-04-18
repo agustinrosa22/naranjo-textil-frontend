@@ -43,7 +43,7 @@ const Detail = () => {
 
   const handleBarcodeClick = () => {
     setShowQR(true);
-    const qrValue = `http://localhost:3000/precio/${id}`;
+    const qrValue = `https://api-naranjo-back.fly.dev/${id}`;
     setCostoQR(qrValue);
   };
   
