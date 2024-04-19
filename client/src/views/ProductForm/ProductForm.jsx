@@ -3,7 +3,8 @@ import { useDispatch } from 'react-redux';
 import { createProduct } from '../../redux/actions'
 import { useNavigate } from 'react-router-dom';
 import styles from './ProductForm.module.css';
-import Logo from '../../assets/logo.png'
+import Logo from '../../assets/logo.png';
+import MultiplesImagenes from '../../components/MultiplesImagenes/MultiplesImagenes'
 
 const ProductForm = () => {
   const dispatch = useDispatch();
@@ -49,6 +50,8 @@ const ProductForm = () => {
     // Puedes redirigir al usuario a la lista de productos u otra página después de enviar el formulario
   };
 
+  console.log(formData)
+
   return (
     <div className={styles.container}>
     <h1 className={styles.title}>Crear Nuevo Producto</h1>
@@ -77,14 +80,7 @@ const ProductForm = () => {
         />
       </label>
       <label>
-        Imagen:
-        <input
-          className={styles.input}
-          type="text"
-          name="image"
-          value={formData.image}
-          onChange={handleChange}
-        />
+     <MultiplesImagenes/>
       </label>
       <label>
         Medidas:

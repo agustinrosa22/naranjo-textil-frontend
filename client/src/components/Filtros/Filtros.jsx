@@ -86,7 +86,10 @@ const ProductListView = () => {
 </div>
       <div className={styles.buttonContainer}>
         <button onClick={applyFilters} className={styles.button}>Aplicar Filtros</button>
-        <button onClick={resetFilters} className={styles.button}>Reiniciar Filtros</button>
+       
+      </div>
+      <div className={styles.buttonContainer}>
+      <button onClick={resetFilters} className={styles.button}>Reiniciar Filtros</button>
       </div>
     </div>
     </div>

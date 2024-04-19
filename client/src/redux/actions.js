@@ -36,14 +36,20 @@ export const getProducts = () => {
     }
 }
 
-export const createProduct = (productData) => {
+export const createProduct = (productData, imageUrl) => {
     return async function (dispatch) {
       try {
-        const response = await axios.post('/product', productData); // Ajusta la URL según tu backend
+        const dataWithImage = { ...productData, image: imageUrl };
+        
+        const response = await axios.post('/product', dataWithImage); // Ajusta la URL según tu backend
         dispatch({
           type: CREATE_PRODUCT,
           payload: response.data,
         });
+
+        localStorage.removeItem('uploadedImage');
+
+        console.log('Propiedad creada:', response.data);
       } catch (error) {
         console.error('Error creating product:', error);
       }
