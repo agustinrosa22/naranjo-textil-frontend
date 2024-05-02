@@ -22,6 +22,15 @@ const Precio = () => {
     fetchProduct();
   }, [id]);
 
+ // Costo del producto
+const costoProducto = product.costo;
+
+// Calcula el descuento del 20%
+const descuento = costoProducto * 0.2;
+
+// Calcula el precio al contado restando el descuento
+const precioContado = costoProducto - descuento;
+
   return (
     <div className={styles.container}>
        <div className={styles.navContainer}>
@@ -33,9 +42,9 @@ const Precio = () => {
       <div className={styles.detailcontainer}>
         <h2>{product.nombreProducto}</h2>
         <p>{product.medidas?.alto} x {product.medidas?.ancho}</p>
-        <p>${product.costo}</p>
+        <p>Precio lista ${product.costo}</p>
+        <p>Precio contado - transferencia ${precioContado}</p>
         <p>{product.tipo}</p>
-        <p>{product.clase}</p>
       </div>
       <div className={styles.boxImg}>
         <img src={product.image} alt={product.nombreProducto} />

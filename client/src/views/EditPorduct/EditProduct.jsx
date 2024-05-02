@@ -201,7 +201,7 @@ const EditProduct = () => {
     />
   </label>
   <label>
-    Costo Previo:
+    Costo con iva:
     <input
       className={styles.input}
       type="number"
@@ -212,7 +212,7 @@ const EditProduct = () => {
     />
   </label>
   <label>
-    Costo:
+    Venta:
     <input
       className={styles.input}
       type="number"
@@ -239,8 +239,6 @@ const EditProduct = () => {
       <option value="LANA">Lana</option>
       <option value="CUERO">Cuero</option>
       <option value="SEAGRASS">Seagrass</option>
-      <option value="ROLLER BLACKOUT">Roller Blackout</option>
-      <option value="ROLLER POLIESTER">Roller Poliéster</option>
       <option value="BANDAS VERTICALES COZUMEL">Bandas Verticales Cozumel</option>
       <option value="BANDAS VERTICALES VERDANA">Bandas Verticales Verdana</option>
     </select>

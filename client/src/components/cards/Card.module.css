@@ -1,26 +1,42 @@
-.card{
-    background-color: #00000010;
-    width: 300px;
-    border-radius: 8px;
-    padding: 20px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    transition: transform 0.3s ease;
-    border: 1px solid black;
+.card {
+  width: 100%;
+  display: flex;
+  border: 1px solid #ccc;
+  padding: 15px;
+  border-radius: 5px;
+  margin: 10px 0;
+  background-color: white;
 }
-.card:hover {
-    transform: scale(1.01);
-    
-  }
 
-  .link {
-    text-decoration: none;
-    color: inherit;
-  }
+.link {
+  text-decoration: none;
+  color: black;
+}
 
-  .image {
-    width: 100%;
-    height: 300px;
-    object-fit: cover;
-    border-radius: 8px;
-  }
+.header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.image {
+  width: 50px; /* Ajusta el tamaño de la imagen */
+  height: 50px;
+  border-radius: 50%; /* Redondea la imagen */
+}
+
+.details {
+  display: grid; /* Configura la estructura de la cuadrícula */
+  grid-template-columns: 1fr 3fr; /* Define las columnas: título y valor */
+  gap: 5px; /* Espacio entre las filas */
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Alinea el texto a ambos extremos */
+}
+
+.column {
+  font-weight: bold; /* Destaca las columnas (títulos) */
+}

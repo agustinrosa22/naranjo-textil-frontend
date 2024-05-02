@@ -56,8 +56,6 @@ const ProductListView = () => {
           <option value="LANA">Lana</option>
           <option value="CUERO">Cuero</option>
           <option value="SEAGRASS">Seagrass</option>
-          <option value="ROLLER BLACKOUT">Roller Blackout</option>
-          <option value="ROLLER POLIESTER">Roller Poliéster</option>
           <option value="BANDAS VERTICALES COZUMEL">Bandas Verticales Cozumel</option>
           <option value="BANDAS VERTICALES VERDANA">Bandas Verticales Verdana</option>
           {/* Otros tipos de productos */}
@@ -73,6 +71,7 @@ const ProductListView = () => {
           <option value="PIE DE CAMA">Pie de cama</option>
           <option value="BORLAS">Borlas</option>
           <option value="MOBILIARIO">Mobiliario</option>
+          <option value="ALFOMBRAS">Alfombras</option>
           {/* Otros tipos de clases */}
         </select>
       </div>

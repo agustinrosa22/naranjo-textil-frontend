@@ -36,25 +36,32 @@ export const getProducts = () => {
     }
 }
 
-export const createProduct = (productData, imageUrl) => {
-    return async function (dispatch) {
+
+
+export const createProduct = (productData) => {
+  return async function (dispatch) {
       try {
-        const dataWithImage = { ...productData, image: imageUrl };
-        
-        const response = await axios.post('/product', dataWithImage); // Ajusta la URL según tu backend
-        dispatch({
-          type: CREATE_PRODUCT,
-          payload: response.data,
-        });
+          const storedImage = JSON.parse(localStorage.getItem('uploadedImage')); // Verifica la clave
+          const dataWithImage = {
+              ...productData,
+              image: storedImage, // Ajusta para enviar la imagen correcta
+          };
+          
+          const response = await axios.post('/product', dataWithImage);
+          dispatch({
+              type: CREATE_PRODUCT,
+              payload: response.data,
+          });
 
-        localStorage.removeItem('uploadedImage');
-
-        console.log('Propiedad creada:', response.data);
+          localStorage.removeItem('uploadedImage'); // Limpiar después de usar
+          window.location.href = '/home';
+      alert('Producto creado exitosamente');
       } catch (error) {
-        console.error('Error creating product:', error);
+          console.error('Error al crear producto:', error);
       }
-    };
   };
+};
+
 
   export const searchProducts = (productName) => {
     return async function (dispatch) {
@@ -247,7 +254,7 @@ console.log(data);
         payload: error.response ? error.response.data.message : error.message,
       });
       if (error.response && error.response.status === 404) {
-        alert('Transacciones no encontradas');
+        // alert('Transacciones no encontradas');
         dispatch(getTransactionsAndProduct('', '', '', '')); 
     }}
   };

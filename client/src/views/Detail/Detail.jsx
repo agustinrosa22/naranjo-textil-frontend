@@ -43,8 +43,26 @@ const Detail = () => {
 
   const handleBarcodeClick = () => {
     setShowQR(true);
-    const qrValue = `https://api-naranjo-back.fly.dev/${id}`;
+    const qrValue = `https://plandos.com/precio/${id}`;
     setCostoQR(qrValue);
+  };
+
+  const handleDeleteClick = async () => {
+    const confirmDelete = window.confirm(
+      `¿Estás seguro de que quieres eliminar el producto "${product.nombreProducto}"?`
+    );
+    if (!confirmDelete) {
+      return; // Si el usuario no confirma, no se realiza la eliminación
+    }
+
+    try {
+      await axios.delete(`/product/${id}`);
+      alert('Producto eliminado con éxito');
+      navigate('/home'); // Navegar a la lista de productos después de eliminar
+    } catch (error) {
+      console.error('Error al eliminar producto:', error);
+      alert('Error al eliminar producto');
+    }
   };
   
   const handleDownloadQR = () => {
@@ -72,21 +90,22 @@ const Detail = () => {
   };
 
   const addToCart = () => {
-     // Obtener el carrito actual del almacenamiento local
-  const currentCart = JSON.parse(localStorage.getItem('cart')) || [];
+    // Obtener el carrito actual del almacenamiento local
+    const currentCart = JSON.parse(localStorage.getItem('cart')) || [];
 
-  // Agregar el nuevo producto al carrito existente
-  const updatedCart = [...currentCart, { ...product, cantidad: 1 }];
+    // Comprobar si el producto ya está en el carrito
+    const productExists = currentCart.some((item) => item.id === product.id);
 
-  // Guardar el carrito actualizado en el almacenamiento local
-  localStorage.setItem('cart', JSON.stringify(updatedCart));
-
-  // Actualizar el estado del carrito en el componente
-  setCart(updatedCart);
-
-  console.log(updatedCart);
+    if (productExists) {
+      alert('Este producto ya está en el carrito.'); // Mensaje de error si el producto ya está en el carrito
+    } else {
+      // Si no está en el carrito, añadirlo
+      const updatedCart = [...currentCart, { ...product, cantidad: 1 }]; // Agregar producto al carrito
+      localStorage.setItem('cart', JSON.stringify(updatedCart)); // Guardar el carrito actualizado
+      setCart(updatedCart); // Actualizar el estado del carrito
+      console.log('Producto agregado al carrito:', updatedCart);
+    }
   };
-
   return (
     <div className={styles.container}>
       <div className={styles.detailcontainer}>
@@ -97,9 +116,9 @@ const Detail = () => {
         <p>Id del proveedor {product.proveedorId}</p>
         <p>Cantidad: {product.cantidad}</p>
         <p>Fecha: {product.fecha}</p>
-        <p>Costo: {product.costo}</p>
+        <p>Venta: {product.costo}</p>
         <p>Registro previo: {product.regPrevio}</p>
-        <p>Costo previo: {product.costoPrevio}</p>
+        <p>Costo con iva {product.costoPrevio}</p>
         <p>Tipo: {product.tipo}</p>
         <p>clase: {product.clase}</p>
         <button onClick={handleGoBack} className={styles.buttonback}>
@@ -126,6 +145,13 @@ const Detail = () => {
 >
   Descargar QR
 </button>
+<button
+          onClick={handleDeleteClick}
+          className={styles.deleteButton}
+          style={{ color: 'red' }}
+        >
+          Eliminar Producto
+        </button>
 
       </div>
       <div className={styles.boxImg}>

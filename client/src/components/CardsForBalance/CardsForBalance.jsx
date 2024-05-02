@@ -9,13 +9,13 @@ const TransactionCard = ({ transaction }) => {
         <h2>{transaction.nombreProducto}</h2>
         <p>ID: {transaction.id}</p>
         <p>Cantidad: {transaction.cantidad}</p>
-        <p>Costo: {transaction.costo}</p>
+        <p>Venta: {transaction.costo}</p>
         <p>Vendedor: {transaction.vendedor}</p>
         <p>Fecha: {new Date(transaction.fecha).toLocaleDateString('es-MX', { year: 'numeric', month: 'numeric', day: 'numeric', week: 'numeric' })}</p>
         <p>Comentario: {transaction.comentario}</p>
         <p>Tipo: {transaction.tipo}</p>
         <p>Clase: {transaction.clase}</p>
-        <p>Costo Previo: {transaction.costoPrevio}</p>
+        <p>Costo con iva: {transaction.costoPrevio}</p>
       </div>
     </div>
   );

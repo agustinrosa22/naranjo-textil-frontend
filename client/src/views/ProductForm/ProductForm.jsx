@@ -44,11 +44,16 @@ const ProductForm = () => {
   };
   
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    dispatch(createProduct(formData));
-    // Puedes redirigir al usuario a la lista de productos u otra página después de enviar el formulario
+  const handleSubmit = async (e) => {
+    e.preventDefault(); // Prevenir el comportamiento por defecto
+    try {
+      await dispatch(createProduct(formData)); // Intentar crear el producto
+      window.location.href = '/home'; // Redirigir a Home en caso de éxito
+    } catch (error) {
+      alert(`Error al crear producto: ${error.message}`); // Mostrar alerta en caso de error
+    }
   };
+
 
   console.log(formData)
 
@@ -156,7 +161,7 @@ const ProductForm = () => {
           />
         </label>
         <label>
-          Costo Previo:
+          Costo con iva:
           <input
             className={styles.input}
             type="number"
@@ -166,7 +171,7 @@ const ProductForm = () => {
           />
         </label>
         <label>
-          Costo:
+          Venta:
           <input
             className={styles.input}
             type="number"
@@ -190,8 +195,6 @@ const ProductForm = () => {
           <option value="LANA">Lana</option>
           <option value="CUERO">Cuero</option>
           <option value="SEAGRASS">Seagrass</option>
-          <option value="ROLLER BLACKOUT">Roller Blackout</option>
-          <option value="ROLLER POLIESTER">Roller Poliéster</option>
           <option value="BANDAS VERTICALES COZUMEL">Bandas Verticales Cozumel</option>
           <option value="BANDAS VERTICALES VERDANA">Bandas Verticales Verdana</option>
         </select>
@@ -211,6 +214,7 @@ const ProductForm = () => {
     <option value="PIE DE CAMA">Pie de cama</option>
     <option value="BORLAS">Borlas</option>
     <option value="MOBILIARIO">Mobiliario</option>
+    <option value="ALFOMBRAS">Alfombras</option>
     </select>
   </div>
         </label>

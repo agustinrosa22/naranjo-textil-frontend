@@ -1,0 +1,9 @@
+.dateContainer{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.date{
+    width: 50%;
+}

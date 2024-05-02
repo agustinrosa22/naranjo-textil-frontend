@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getTransactionsAndProduct } from '../../redux/actions';
 import CardsContainerForBalances from '../../components/CardsContainerForBalances/CardsContainerForBalances';
+import style from './Balance.module.css'
 
 
 const TransactionView = () => {
@@ -14,9 +15,11 @@ const TransactionView = () => {
   const [tipo, setTipo] = useState('');
   const [clase, setClase] = useState('');
 
+
+  // Llamar a la acción para obtener las transacciones cuando el componente se monte
   useEffect(() => {
-    // No se llama a getAllTransactions aquí para evitar la búsqueda automática al cargar el componente
-  }, []);
+    dispatch(getTransactionsAndProduct(startDate, endDate, tipo, clase));
+  }, []); // El array vacío garantiza que se ejecute solo al montarse el componente
 
   const calculateTotal = () => {
     let totalCantidad = 0;
@@ -29,25 +32,26 @@ const TransactionView = () => {
       totalCosto += parseFloat(transaction.costo);
     });
 
-    const ganancia = totalCosto - totalCostoPrevio; 
+    const ganancia = totalCosto - totalCostoPrevio;
 
-    return { totalCantidad, totalCostoPrevio,  totalCosto, ganancia};
+    return { totalCantidad, totalCostoPrevio, totalCosto, ganancia };
   };
 
   const { totalCantidad, totalCostoPrevio, totalCosto, ganancia } = calculateTotal();
 
   const handleFilter = () => {
-    // Llama a la acción de Redux solo cuando se presiona el botón de filtrar
+    // Llama a la acción para filtrar las transacciones
     dispatch(getTransactionsAndProduct(startDate, endDate, tipo, clase));
   };
 
   const handleResetFilters = () => {
-    // Resetear los valores de los filtros
+    // Restablecer los valores de los filtros
     setStartDate('');
     setEndDate('');
     setTipo('');
     setClase('');
-    // Volver a obtener las transacciones sin filtros
+
+    // Volver a obtener todas las transacciones
     dispatch(getTransactionsAndProduct('', '', '', ''));
   };
 
@@ -58,7 +62,6 @@ const TransactionView = () => {
   if (error) {
     return <div>Error: {error}</div>;
   }
-
   return (
     <div>
       <h1>VENTAS</h1>
@@ -68,9 +71,10 @@ const TransactionView = () => {
         <p>Total vendido: ${totalCosto}</p>
         <p>Ganancia: ${ganancia}</p>
       </div>
-      <div>
+      <div className={style.dateContainer}>
         <label htmlFor="startDate">Fecha de inicio:</label>
         <input
+        className={style.date}
           type="date"
           id="startDate"
           value={startDate}
@@ -78,6 +82,7 @@ const TransactionView = () => {
         />
         <label htmlFor="endDate">Fecha de fin:</label>
         <input
+        className={style.date}
           type="date"
           id="endDate"
           value={endDate}
@@ -97,8 +102,6 @@ const TransactionView = () => {
   <option value="LANA">Lana</option>
   <option value="CUERO">Cuero</option>
   <option value="SEAGRASS">Seagrass</option>
-  <option value="ROLLER BLACKOUT">Roller Blackout</option>
-  <option value="ROLLER POLIESTER">Roller Poliéster</option>
   <option value="BANDAS VERTICALES COZUMEL">Bandas Verticales Cozumel</option>
   <option value="BANDAS VERTICALES VERDANA">Bandas Verticales Verdana</option>
   {/* Otros tipos de productos */}
@@ -117,6 +120,7 @@ const TransactionView = () => {
     <option value="PIE DE CAMA">Pie de cama</option>
     <option value="BORLAS">Borlas</option>
     <option value="MOBILIARIO">Mobiliario</option>
+    <option value="ALFOMBRAS">Alfombras</option>
     {/* Otros tipos de clases */}
   </select>
         <button onClick={handleFilter}>Filtrar</button>
