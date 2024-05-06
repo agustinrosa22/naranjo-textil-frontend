@@ -20,6 +20,7 @@ import {
     GET_TRANSACTIONS_AND_PRODUCT_REQUEST,
     GET_TRANSACTIONS_AND_PRODUCT_SUCCESS,
     GET_TRANSACTIONS_AND_PRODUCT_FAILURE, 
+    REMOVE_TRANSACTION,
 } from './actionTypes'
 
 export const getProducts = () => {
@@ -85,7 +86,7 @@ export const editProduct = (id, productData) => {
       const response = await axios.put(`/product/${id}`, productData);
       dispatch(editProductSuccess(response.data));
       window.location.href = '/home';
-      alert('Producto editado exitosamente');
+      alert(`Producto editado exitosamente: ${productData.nombreProducto || id}`);
     } catch (error) {
       dispatch(editProductFailure(error.message));
     }
@@ -257,5 +258,12 @@ console.log(data);
         // alert('Transacciones no encontradas');
         dispatch(getTransactionsAndProduct('', '', '', '')); 
     }}
+  };
+};
+
+export const removeTransactionFromStore = (transactionId) => {
+  return {
+    type: REMOVE_TRANSACTION,
+    payload: transactionId, // Identificador de la transacción a eliminar
   };
 };

@@ -21,6 +21,7 @@ import {
     GET_TRANSACTIONS_AND_PRODUCT_REQUEST,
     GET_TRANSACTIONS_AND_PRODUCT_SUCCESS,
     GET_TRANSACTIONS_AND_PRODUCT_FAILURE,
+    REMOVE_TRANSACTION,
  } from "./actionTypes";
 
  const initialState = {
@@ -165,6 +166,13 @@ switch(action.type) {
                                     loading: false,
                                     error: action.payload,
                                   };
+                                  case REMOVE_TRANSACTION:
+                                    return {
+                                      ...state,
+                                      transactions: state.transactions.filter(
+                                        (transaction) => transaction.id !== action.payload
+                                      ), // Filtrar la lista de transacciones para eliminar la correspondiente
+                                    };
         default:
          
             return state;

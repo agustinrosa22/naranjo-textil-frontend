@@ -25,17 +25,15 @@ const CartView = () => {
   };
 
   const handleQuantityChange = (productId, newQuantity) => {
-    const updatedCart = cart.map(item => {
+    const updatedCart = cart.map((item) => {
       if (item.id === productId) {
-        // Obtener la cantidad máxima disponible para el producto
-        const maxQuantity = item.cantidad;
-        // Establecer la nueva cantidad como máximo de 1 y el máximo disponible
-        const updatedQuantity = Math.min(Math.max(1, newQuantity), maxQuantity);
-        return { ...item, cantidad: updatedQuantity };
+        const updatedQuantity = Math.max(1, newQuantity); // Asegúrate de que la cantidad sea al menos 1
+        return { ...item, cantidad: updatedQuantity }; // Actualiza el objeto con la nueva cantidad
       }
       return item;
     });
-    setCart(updatedCart);
+    setCart(updatedCart); // Actualiza el estado
+    localStorage.setItem('cart', JSON.stringify(updatedCart)); // Asegúrate de actualizar el LocalStorage
   };
   
 
@@ -78,6 +76,7 @@ const CartView = () => {
       tipo: product.tipo,
       clase: product.clase,
       costoPrevio: product.costoPrevio,
+      proveedor: product.proveedor,
     };
     console.log(saleData);
     dispatch(sellProduct(saleData));
@@ -108,12 +107,17 @@ const CartView = () => {
                 onChange={(e) => handleCostChange(product.id, product.costo * (1 - parseFloat(e.target.value) / 100))}
               />
               <input
-                className={style.inputField}
-                type="number"
-                placeholder="Cantidad"
-                value={product.cantidad}
-                onChange={(e) => handleQuantityChange(product.id, parseInt(e.target.value))}
-              />
+  className={style.inputField}
+  type="number"
+  value={product.cantidad} // Asegúrate de que sea un número
+  onChange={(e) => {
+    const newValue = parseInt(e.target.value); // Convertir el valor a número
+    if (!isNaN(newValue) && newValue > 0) { // Validar la entrada
+      handleQuantityChange(product.id, newValue); // Llamar al manejador con el nuevo valor
+    }
+  }}
+/>
+
               <input
                 className={style.inputField}
                 type="text"

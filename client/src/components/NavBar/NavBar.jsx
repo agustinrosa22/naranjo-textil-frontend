@@ -23,6 +23,9 @@ const NavBar = ()=> {
             <img src={Logo} alt="Naranjo Diseño e Interiores" className={styles.logo}/>
             </Link>
             <SearchBar />
+            <NavLink to='/groupedit' className={styles.linkbalance} >
+                    <h2>Edit Precio</h2>
+                </NavLink>
             <NavLink to='/create' className={styles.link} >
             <h2>Agregar</h2>
             </NavLink>
@@ -33,6 +36,7 @@ const NavBar = ()=> {
                 <NavLink to='/carrito' className={styles.linkbalance} >
                     <h2>Carrito</h2>
                 </NavLink>
+                
                 <button className={styles.linkbalance} onClick={handleLogout}>Logout</button>
         </nav>
         </div>

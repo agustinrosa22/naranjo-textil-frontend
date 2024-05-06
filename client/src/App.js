@@ -11,6 +11,7 @@ import CartView from './components/Carrito/Carrito';
 import Login from './views/Login/Login';
 import TransactionView from './views/Balance/Balance';
 import { Navigate } from 'react-router-dom';
+import GroupEdit from './views/GroupEdit/GroupEdit';
 
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
       <Route path='/' element={<Login />} />
        <Route path='/home' element={user ? <Home /> :  <Navigate to="/" />}  />
        <Route path='/create' element={user ? <ProductForm />:  <Navigate to="/" />} />
+       <Route path='/groupedit' element={user ? <GroupEdit />:  <Navigate to="/" />} />
        <Route path="/detail/:id" element={user ?  <Detail />:  <Navigate to="/" />} />
        <Route path="/edit/:id" element={ user ? <EditProduct />: <Navigate to="/" />} />
        <Route path="/precio/:id" element={ <Precio />} />
