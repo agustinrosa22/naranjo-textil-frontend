@@ -13,7 +13,7 @@ const Card = (props) => {
                 <div className={styles.details}>
                     <div className={styles.row}>
                         <p className={styles.column}>Medidas:</p>
-                        <p>{props.medidas?.alto} x {props.medidas?.ancho}</p>
+                        <p>{props?.alto} x {props?.ancho}</p>
                     </div>
                     <div className={styles.row}>
                         <p className={styles.column}>Tipo:</p>
@@ -33,7 +33,7 @@ const Card = (props) => {
                     </div>
                     <div className={styles.row}>
                         <p className={styles.column}>Cantidad:</p>
-                        <p>{props.cantidad}</p>
+                        <p className={props.cantidad <= 0 ? styles.redText : ''}>{props.cantidad}</p>
                     </div>
                 </div>
             </Link>

@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 import { editProduct } from '../../redux/actions';
 import styles from './EditProduct.module.css';
 import axios from 'axios';
+import MultiplesImagenes from '../../components/MultiplesImagenes/MultiplesImagenes';
 
 const EditProduct = () => {
   const { id } = useParams();
@@ -11,9 +12,10 @@ const EditProduct = () => {
   const user = useSelector(state => state.user);
   const [formData, setFormData] = useState({
     nombreProducto: '',
-    medidas: '',
     proveedor: '',
     proveedorId: '',
+    alto: '',
+    ancho: '',
     cantidad: 0,
     fecha: null,
     costo: 0,
@@ -34,28 +36,21 @@ const EditProduct = () => {
       try {
         const response = await axios.get(`/product/${id}`);
         const productData = response.data.data;
-        // Establecer los datos del producto en el estado del formulario
-        setFormData({
-          nombreProducto: productData.nombreProducto,
-          medidas: productData.medidas,
-          proveedor: productData.proveedor,
-          proveedorId: productData.proveedorId,
-          cantidad: productData.cantidad,
-          fecha: productData.fecha,
-          costo: productData.costo,
-          costoPrevio: productData.costoPrevio,
-          tipo: productData.tipo,
-          image: productData.image,
-          regPrevio: productData.regPrevio,
-          productoId: productData.productoId,
-          clase: productData.clase,
-        });
+        setFormData(productData);
       } catch (error) {
         console.error('Error fetching product:', error);
       }
     };
     fetchProduct();
-  }, [id]);
+  }, [id]);   
+
+    // Función para manejar la selección de imágenes
+    const handleImageSelected = (imageUrl) => {
+      setFormData({
+        ...formData,
+        image: imageUrl,
+      });
+    };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -110,15 +105,8 @@ const EditProduct = () => {
     />
   </label>
   <label>
-    Imagen:
-    <input
-      className={styles.input}
-      type="text"
-      name="image"
-      value={formData.image}
-      onChange={handleChange}
-      disabled={user && user.tipo !== 'Admin'}
-    />
+  Imagen:
+   <MultiplesImagenes onImageSelected={handleImageSelected} />
   </label>
   <label>
     Medidas:
@@ -128,8 +116,8 @@ const EditProduct = () => {
         placeholder='Alto cm'
         type="number"
         name="alto"
-        value={formData.medidas?.alto}
-        onChange={handleMedidasChange}
+        value={formData?.alto}
+        onChange={handleChange}
         disabled={user && user.tipo !== 'Admin'}
       />
       <input
@@ -137,8 +125,8 @@ const EditProduct = () => {
         placeholder='Ancho cm'
         type="number"
         name="ancho"
-        value={formData.medidas?.ancho}
-        onChange={handleMedidasChange}
+        value={formData?.ancho}
+        onChange={handleChange}
         disabled={user && user.tipo !== 'Admin'}
       />
     </div>
@@ -239,8 +227,7 @@ const EditProduct = () => {
       <option value="LANA">Lana</option>
       <option value="CUERO">Cuero</option>
       <option value="SEAGRASS">Seagrass</option>
-      <option value="BANDAS VERTICALES COZUMEL">Bandas Verticales Cozumel</option>
-      <option value="BANDAS VERTICALES VERDANA">Bandas Verticales Verdana</option>
+      <option value="OTROS">Otros</option>
     </select>
   </div>
   <div>

@@ -4,12 +4,10 @@ import { Container, Button } from "reactstrap";
 import style from './MultiplesImagenes.module.css'
 import axios from "axios";
 
-const MultiplesImagenes = () => {
+const MultiplesImagenes = ({ onImageSelected }) => {
     const [image, setImage] = useState(null);
-    const [loading, setLoading] = useState(false);
 
     const handleDrop = async (files) => {
-        setLoading(true);
         try {
             const file = files[0]; // Obtener solo el primer archivo
             const formData = new FormData();
@@ -23,33 +21,20 @@ const MultiplesImagenes = () => {
                 headers: {"X-Requested-With": "XMLHttpRequest"},
             });
 
-            setImage(response.data.secure_url); // Establecer la URL de la imagen subida
-
-            localStorage.setItem('uploadedImage', JSON.stringify(response.data.secure_url)); // Guardar la imagen en `localStorage`
+            const imageUrl = response.data.secure_url;
+            setImage(imageUrl); // Establecer la URL de la imagen subida
+            onImageSelected(imageUrl); // Enviar la URL al componente padre
         } catch (error) {
             console.error("Error al subir imágenes:", error);
-        } finally {
-            setLoading(false);
         }
     };
 
     const handleDeleteImage = () => {
         setImage(null); // Eliminar la imagen del estado
-        localStorage.removeItem('uploadedImage'); // Eliminar del `localStorage`
+        onImageSelected(null); // Enviar null al componente padre para indicar que no hay imagen seleccionada
     };
 
-    useEffect(() => {
-        const storedImage = JSON.parse(localStorage.getItem('uploadedImage'));
-        if (storedImage) {
-            setImage(storedImage); // Cargar la imagen del `localStorage`
-        }
-    }, []); // Cargar al montar el componente
-
     function imagePreview() {
-        if (loading) {
-            return <h3>Cargando imagen...</h3>;
-        }
-
         return (
             <div>
                 {image ? (
@@ -90,4 +75,3 @@ const MultiplesImagenes = () => {
 };
 
 export default MultiplesImagenes;
-

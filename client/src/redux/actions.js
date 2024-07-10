@@ -41,25 +41,19 @@ export const getProducts = () => {
 
 export const createProduct = (productData) => {
   return async function (dispatch) {
-      try {
-          const storedImage = JSON.parse(localStorage.getItem('uploadedImage')); // Verifica la clave
-          const dataWithImage = {
-              ...productData,
-              image: storedImage, // Ajusta para enviar la imagen correcta
-          };
-          
-          const response = await axios.post('/product', dataWithImage);
-          dispatch({
-              type: CREATE_PRODUCT,
-              payload: response.data,
-          });
+    try {
+      const response = await axios.post('/product', productData);
+      dispatch({
+        type: CREATE_PRODUCT,
+        payload: response.data,
+      });
 
-          localStorage.removeItem('uploadedImage'); // Limpiar después de usar
-          window.location.href = '/home';
+      localStorage.removeItem('uploadedImage');
+      window.location.href = '/home';
       alert('Producto creado exitosamente');
-      } catch (error) {
-          console.error('Error al crear producto:', error);
-      }
+    } catch (error) {
+      console.error('Error al crear producto:', error);
+    }
   };
 };
 
@@ -112,6 +106,7 @@ export const sellProduct = (saleData) => async (dispatch) => {
   } catch (error) {
     dispatch({ type: 'SELL_PRODUCT_FAILURE', payload: error.message });
     console.error('Error selling product:', error);
+    alert(`No hay suficiente stock del producto ${saleData.nombreProducto}`);
   }
 };
 
@@ -244,7 +239,9 @@ export const getTransactionsAndProduct = (startDate, endDate, tipo, clase ) => {
 
       // Combinar transacciones y producto
       const data = { transactions };
-console.log(data);
+// console.log(data);
+
+
       dispatch({
         type: GET_TRANSACTIONS_AND_PRODUCT_SUCCESS,
         payload: data,
@@ -255,7 +252,6 @@ console.log(data);
         payload: error.response ? error.response.data.message : error.message,
       });
       if (error.response && error.response.status === 404) {
-        // alert('Transacciones no encontradas');
         dispatch(getTransactionsAndProduct('', '', '', '')); 
     }}
   };

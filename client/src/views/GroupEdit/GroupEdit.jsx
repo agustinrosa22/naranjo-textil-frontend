@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 import { editProduct } from '../../redux/actions';
 import style from './GroupEdit.module.css';
 
+
 const GroupEdit = () => {
   const [products, setProducts] = useState([]); // Inicializa como array vacío
   const [selectedProducts, setSelectedProducts] = useState([]);
@@ -73,7 +74,7 @@ const GroupEdit = () => {
                 <div className={style.details}>
                     <div className={style.row}>
                         <p className={style.column}>Medidas:</p>
-                        <p>{product.medidas?.alto} x {product.medidas?.ancho}</p>
+                        <p>{product?.alto} x {product?.ancho}</p>
                     </div>
                     <div className={style.row}>
                         <p className={style.column}>Tipo:</p>

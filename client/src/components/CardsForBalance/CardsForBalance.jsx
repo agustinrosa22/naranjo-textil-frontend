@@ -1,11 +1,12 @@
 import React from 'react';
-import { useDispatch } from 'react-redux'; // Importa useDispatch para enviar acciones a Redux
+import { useDispatch, useSelector } from 'react-redux'; // Importa useDispatch para enviar acciones a Redux
 import axios from 'axios'; // Axios para realizar solicitudes HTTP
 import style from './CardsForBalance.module.css';
 import { removeTransactionFromStore } from '../../redux/actions';
 
 const TransactionCard = ({ transaction, onDelete }) => {
   const dispatch = useDispatch();
+  const user = useSelector(state => state.user);
 
   const handleDelete = async () => {
     // Mostrar confirmación antes de eliminar
@@ -28,23 +29,65 @@ const TransactionCard = ({ transaction, onDelete }) => {
 
   return (
     <div className={style.card}>
-      <img src={transaction.image} alt="" className={style.image} />
+       <div className={style.header}>
+                    <img src={transaction.image} className={style.image} alt={transaction.nombreProducto} />
+                    <h2>{transaction.nombreProducto}</h2>
+                </div>
       <div className={style.details}>
-        <h2>{transaction.nombreProducto}</h2>
-        <p>ID: {transaction.id}</p>
-        <p>Cantidad: {transaction.cantidad}</p>
-        <p>Venta: {transaction.costo}</p>
-        <p>Vendedor: {transaction.vendedor}</p>
-        <p>Fecha: {new Date(transaction.fecha).toLocaleDateString('es-MX', { year: 'numeric', month: 'numeric', day: 'numeric', week: 'numeric' })}</p>
-        <p>Comentario: {transaction.comentario}</p>
-        <p>Tipo: {transaction.tipo}</p>
-        <p>Clase: {transaction.clase}</p>
-        <p>Costo con iva: {transaction.costoPrevio}</p>
-        <p>Proveedor: {transaction.proveedor}</p>
+      <div className={style.row}>
+                        <p className={style.column}>Clase:</p>
+                        <p>{transaction.clase}</p>
+                    </div>
+                    <div className={style.row}>
+                        <p className={style.column}>Cantidad:</p>
+                        <p>{transaction.cantidad}</p>
+                    </div>
+                    <div className={style.row}>
+                        <p className={style.column}>Venta:</p>
+                        <p>{transaction.costo}</p>
+                    </div>
+                    <div className={style.row}>
+                        <p className={style.column}>Vendedor:</p>
+                        <p>{transaction.vendedor}</p>
+                    </div>
+                    <div className={style.row}>
+                        <p className={style.column}>Fecha:</p>
+                        <p>{new Date(transaction.fecha).toLocaleDateString('es-MX', { year: 'numeric', month: 'numeric', day: 'numeric', week: 'numeric' })}</p>
+                    </div>
+                    <div className={style.row}>
+                        <p className={style.column}>Comentario:</p>
+                        <p>{transaction.comentario}</p>
+                    </div>
+                    <div className={style.row}>
+                        <p className={style.column}>Tipo:</p>
+                        <p>{transaction.tipo}</p>
+                    </div>
+                    <div className={style.row}>
+                        <p className={style.column}>Clase:</p>
+                        <p>{transaction.clase}</p>
+                    </div>
+                    <div className={style.row}>
+                        <p className={style.column}>Costo con iva:</p>
+                        <p>{transaction.costoPrevio}</p>
+                    </div>
+                    <div className={style.row}>
+                        <p className={style.column}>Proveedor:</p>
+                        <p>{transaction.proveedor}</p>
+                    </div>
+                    <div className={style.row}>
+                        <p className={style.column}>Alto:</p>
+                        <p>{transaction.alto}</p>
+                    </div>
+                    <div className={style.row}>
+                        <p className={style.column}>Ancho:</p>
+                        <p>{transaction.ancho}</p>
+                    </div>
       </div>
+      {user && user.tipo === 'Admin' && (
       <button className={style.deleteButton} onClick={handleDelete}>
           Eliminar Transacción
         </button> 
+      )}
     </div>
   );
 };

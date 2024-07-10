@@ -1,0 +1,33 @@
+.header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+   margin-right: 35px;
+  }
+  
+  .image {
+    width: 50px; /* Ajusta el tamaño de la imagen */
+    height: 50px;
+    border-radius: 50%; /* Redondea la imagen */
+  }
+  
+  .details {
+    display: flex; /* Configura la estructura de la cuadrícula */
+    flex: 1;
+    grid-template-columns: 1fr 3fr; /* Define las columnas: título y valor */
+    gap: 5px; /* Espacio entre las filas */
+  }
+  
+  .row {
+    display: flex;
+  
+    align-items: center;
+    justify-content: space-between; /* Alinea el texto a ambos extremos */
+    width: 100%; 
+    padding-top: 6px;
+  }
+  
+  .column {
+    font-weight: bold; /* Destaca las columnas (títulos) */
+  }
+ 

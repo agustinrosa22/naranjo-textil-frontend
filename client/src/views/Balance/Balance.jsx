@@ -56,7 +56,7 @@ const TransactionView = () => {
   };
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <div>No se han realizado ventas</div>;
   }
 
   if (error) {
@@ -102,8 +102,7 @@ const TransactionView = () => {
   <option value="LANA">Lana</option>
   <option value="CUERO">Cuero</option>
   <option value="SEAGRASS">Seagrass</option>
-  <option value="BANDAS VERTICALES COZUMEL">Bandas Verticales Cozumel</option>
-  <option value="BANDAS VERTICALES VERDANA">Bandas Verticales Verdana</option>
+  <option value="OTROS">Otros</option>
   {/* Otros tipos de productos */}
 </select>
 <label htmlFor="clase">Clase:</label>

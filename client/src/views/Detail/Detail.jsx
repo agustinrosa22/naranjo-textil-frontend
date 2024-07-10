@@ -43,7 +43,7 @@ const Detail = () => {
 
   const handleBarcodeClick = () => {
     setShowQR(true);
-    const qrValue = `https://plandos.com/precio/${id}`;
+    const qrValue = ` https://deco.naranjointeriores.com.ar/precio/${id}`;
     setCostoQR(qrValue);
   };
 
@@ -66,19 +66,36 @@ const Detail = () => {
   };
   
   const handleDownloadQR = () => {
-    setDownloadingQR(true);
-    const qrCodeContainer = document.getElementById('qr-code-container');
+    if (!showQR) {
+      handleBarcodeClick();
+      setTimeout(() => {
+        setDownloadingQR(true);
+        const qrCodeContainer = document.getElementById('qr-code-container');
   
-    html2canvas(qrCodeContainer).then((canvas) => {
-      const imgData = canvas.toDataURL('image/png');
-      const link = document.createElement('a');
-      link.download = 'qr_code.png';
-      link.href = imgData;
-      link.click();
-      setDownloadingQR(false);
-    });
+        html2canvas(qrCodeContainer).then((canvas) => {
+          const imgData = canvas.toDataURL('image/png');
+          const link = document.createElement('a');
+          link.download = 'qr_code.png';
+          link.href = imgData;
+          link.click();
+          setDownloadingQR(false);
+        });
+      }, 500); // Espera 500 ms para que el QR se renderice
+    } else {
+      setDownloadingQR(true);
+      const qrCodeContainer = document.getElementById('qr-code-container');
+  
+      html2canvas(qrCodeContainer).then((canvas) => {
+        const imgData = canvas.toDataURL('image/png');
+        const link = document.createElement('a');
+        link.download = 'qr_code.png';
+        link.href = imgData;
+        link.click();
+        setDownloadingQR(false);
+      });
+    }
   };
-
+  
   const handleGoBack = () => {
     navigate(-1);
 
@@ -93,9 +110,9 @@ const Detail = () => {
     // Obtener el carrito actual del almacenamiento local
     const currentCart = JSON.parse(localStorage.getItem('cart')) || [];
 
+   
     // Comprobar si el producto ya está en el carrito
     const productExists = currentCart.some((item) => item.id === product.id);
-
     if (productExists) {
       alert('Este producto ya está en el carrito.'); // Mensaje de error si el producto ya está en el carrito
     } else {
@@ -103,7 +120,7 @@ const Detail = () => {
       const updatedCart = [...currentCart, { ...product, cantidad: 1 }]; // Agregar producto al carrito
       localStorage.setItem('cart', JSON.stringify(updatedCart)); // Guardar el carrito actualizado
       setCart(updatedCart); // Actualizar el estado del carrito
-      console.log('Producto agregado al carrito:', updatedCart);
+      alert('Producto añadido al carrito.');
     }
   };
   return (
@@ -111,7 +128,7 @@ const Detail = () => {
       <div className={styles.detailcontainer}>
         <h1>{product.productoId}</h1>
         <h2>Nombre: {product.nombreProducto}</h2>
-        <p>Medidas: {product.medidas?.alto} x {product.medidas?.ancho}</p>
+        <p>Medidas: {product.alto} x {product.ancho}</p>
         <p>Proveedor: {product.proveedor}</p>
         <p>Id del proveedor {product.proveedorId}</p>
         <p>Cantidad: {product.cantidad}</p>

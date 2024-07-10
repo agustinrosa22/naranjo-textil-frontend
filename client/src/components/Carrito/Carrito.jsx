@@ -77,6 +77,8 @@ const CartView = () => {
       clase: product.clase,
       costoPrevio: product.costoPrevio,
       proveedor: product.proveedor,
+      alto: product.alto,
+      ancho: product.ancho
     };
     console.log(saleData);
     dispatch(sellProduct(saleData));
