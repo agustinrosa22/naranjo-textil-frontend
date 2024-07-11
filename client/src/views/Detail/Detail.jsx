@@ -133,9 +133,9 @@ const Detail = () => {
         <p>Id del proveedor {product.proveedorId}</p>
         <p>Cantidad: {product.cantidad}</p>
         <p>Fecha: {product.fecha}</p>
-        <p>Venta: {product.costo}</p>
+        <p>Venta: ${product.costo?.toLocaleString('es-AR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
         <p>Registro previo: {product.regPrevio}</p>
-        <p>Costo con iva {product.costoPrevio}</p>
+        <p>Costo con iva: ${product.costoPrevio?.toLocaleString('es-AR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
         <p>Tipo: {product.tipo}</p>
         <p>clase: {product.clase}</p>
         <button onClick={handleGoBack} className={styles.buttonback}>

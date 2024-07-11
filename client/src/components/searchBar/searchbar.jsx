@@ -15,15 +15,23 @@ const SearchBar = () => {
         }
     };
 
+    const clearSearch = () => {
+        setSearchTerm('');
+        dispatch(getProducts());
+    };
+
     return (
         <div className={styles.searchBar}>
-            <input
-                type="text"
-                placeholder="Buscar..."
-                className={styles.input}
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-            />
+            <div className={styles.inputContainer}>
+                <input
+                    type="text"
+                    placeholder="Buscar..."
+                    className={styles.input}
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                />
+                {searchTerm && <button className={styles.clearButton} onClick={clearSearch}>×</button>}
+            </div>
             <button className={styles.searchButton} onClick={handleSearch}>
                 <i className="fas fa-search">buscar</i>
             </button>

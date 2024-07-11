@@ -67,9 +67,9 @@ const TransactionView = () => {
       <h1>VENTAS</h1>
       <div>
         <p>Total Cantidad: {totalCantidad}</p>
-        <p>Total Costo Previo: {totalCostoPrevio}</p>
-        <p>Total vendido: ${totalCosto}</p>
-        <p>Ganancia: ${ganancia}</p>
+        <p>Total Costo Previo: ${totalCostoPrevio?.toLocaleString('es-AR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
+        <p>Total vendido: ${totalCosto?.toLocaleString('es-AR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
+        <p>Ganancia: ${ganancia?.toLocaleString('es-AR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
       </div>
       <div className={style.dateContainer}>
         <label htmlFor="startDate">Fecha de inicio:</label>

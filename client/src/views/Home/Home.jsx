@@ -31,7 +31,18 @@ const Home = () => {
     }, 0);
   };
 
+  const calculateTotalCostPrevio = () => {
+    return productList.reduce((total, product) => {
+      const productCost = parseFloat(product.costoPrevio || 0);
+      const productQuantity = parseInt(product.cantidad || 0);
+      return total + (productCost * productQuantity);
+    }, 0);
+  };
+
+
   const totalCost = calculateTotalCost();
+  const totalCostPrevio = calculateTotalCostPrevio();
+  const ganaciasPotenciales = totalCost-totalCostPrevio
 
   if (loading) {
     return <div>Loading...</div>;
@@ -47,7 +58,9 @@ const Home = () => {
       <h1>STOCK</h1>
       <div className={styles.totalsContainer}>
         <h2>Resumen del Stock</h2>
-        <p>Total Costo del Stock: ${totalCost.toLocaleString('es-AR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
+        <p>Total Venta del Stock: ${totalCost.toLocaleString('es-AR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
+        <p>Total Costo del Stock: ${totalCostPrevio.toLocaleString('es-AR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
+        <p>Ganacias Potenciales:  ${ganaciasPotenciales.toLocaleString('es-AR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
       </div>
       <CardsContainer productList={productList} />
     </div>

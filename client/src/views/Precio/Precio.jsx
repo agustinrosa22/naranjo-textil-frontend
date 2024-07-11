@@ -42,8 +42,7 @@ const precioContado = costoProducto - descuento;
       <div className={styles.detailcontainer}>
         <h2>{product.nombreProducto}</h2>
         <p>{product?.alto} x {product?.ancho}</p>
-        <p>Precio lista ${product.costo}</p>
-        <p>Precio contado - transferencia ${precioContado}</p>
+        <p>Precio ${product.costo.toLocaleString('es-AR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
         <p>{product.tipo}</p>
       </div>
       <div className={styles.boxImg}>

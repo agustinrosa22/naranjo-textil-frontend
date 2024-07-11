@@ -23,6 +23,12 @@
     align-items: center;
 }
 
+.hamburger {
+    display: none;
+    font-size: 24px;
+    cursor: pointer;
+}
+
 .link {
     text-decoration: none;
     color: #333;
@@ -66,4 +72,39 @@
 
 .searchButton:hover {
     background-color: #0056b3;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .navLinks {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        position: absolute;
+        top: 90px;
+        left: 0;
+        background-color: rgb(255, 255, 255);
+        z-index: 1;
+        border-top: 1px solid black;
+    }
+
+    .navLinks.showMenu {
+        display: flex;
+    }
+
+    .hamburger {
+        display: block;
+    }
+
+    .link {
+        width: 100%;
+        text-align: center;
+        padding: 15px 0;
+        border: none;
+        margin: 0;
+    }
+
+    .link:hover {
+        background-color: #d4d4d4;
+    }
 }
