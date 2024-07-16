@@ -22,12 +22,16 @@ import {
     GET_TRANSACTIONS_AND_PRODUCT_SUCCESS,
     GET_TRANSACTIONS_AND_PRODUCT_FAILURE,
     REMOVE_TRANSACTION,
+    FETCH_PRODUCTS_SUCCESS, 
+    FETCH_PRODUCTS_FAILURE, 
+    EDIT_PRODUCT
  } from "./actionTypes";
 
  const initialState = {
     productList: [],
     filteredProductList: [],
     transactions: [],
+    products: [],
     error: null,
     saleData: null,
     loading: false,
@@ -173,6 +177,19 @@ switch(action.type) {
                                         (transaction) => transaction.id !== action.payload
                                       ), // Filtrar la lista de transacciones para eliminar la correspondiente
                                     };
+                                    case FETCH_PRODUCTS_SUCCESS:
+                                      return {
+                                        ...state,
+                                        products: action.payload,
+                                        error: null,
+                                      };
+                                    case FETCH_PRODUCTS_FAILURE:
+                                      return {
+                                        ...state,
+                                        products: [],
+                                        error: action.payload,
+                                      };
+                                      
         default:
          
             return state;

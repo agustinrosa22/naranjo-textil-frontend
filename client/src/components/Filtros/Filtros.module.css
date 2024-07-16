@@ -45,3 +45,29 @@
     align-items: center; /* Centra los elementos horizontalmente */
     text-align: center; /* Centra el texto horizontalmente */
   }
+
+  
+  @media (max-width: 768px) {
+    .filtersContainer {
+      flex-direction: column; /* Cambia a columna para pantallas pequeñas */
+      align-items: center; /* Centra los elementos */
+    }
+  
+    .select {
+      width: 100%; /* Ajusta el ancho del selector al 100% */
+      max-width: 300px; /* Añade un ancho máximo para evitar que sea demasiado grande */
+      margin-bottom: 10px; /* Añade espacio entre los selectores */
+    }
+  
+    .buttonContainer {
+      display: flex;
+      flex-direction: column; /* Cambia a columna para pantallas pequeñas */
+      align-items: center; /* Centra los botones */
+    }
+  
+    .button {
+      width: 100%; /* Ajusta el ancho del botón al 100% */
+      max-width: 300px; /* Añade un ancho máximo para evitar que sea demasiado grande */
+      margin: 10px 0; /* Añade espacio entre los botones */
+    }
+  }

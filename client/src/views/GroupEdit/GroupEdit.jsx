@@ -1,33 +1,28 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import { useDispatch } from 'react-redux';
-import { editProduct } from '../../redux/actions';
+import { useDispatch, useSelector } from 'react-redux';
+import { editProduct, getProducts } from '../../redux/actions';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowUp, faArrowDown } from '@fortawesome/free-solid-svg-icons';
 import style from './GroupEdit.module.css';
 
-
 const GroupEdit = () => {
-  const [products, setProducts] = useState([]); // Inicializa como array vacío
   const [selectedProducts, setSelectedProducts] = useState([]);
-  const [newPrice, setNewPrice] = useState('');
+  const [priceIncrement, setPriceIncrement] = useState('');
   const dispatch = useDispatch();
 
-  // Obtener todos los productos al montar el componente
+  const productList = useSelector((state) => state.productList);
+
   useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const response = await axios.get('/product/');
-        const data = Array.isArray(response.data.data) ? response.data.data : []; // Asegúrate de que es un array
-        setProducts(data);
-      } catch (error) {
-        console.error('Error fetching products:', error);
-        setProducts([]); // Inicializa como array vacío si hay error
-      }
-    };
+    dispatch(getProducts());
+  }, [dispatch]);
 
-    fetchProducts();
-  }, []);
+  // Actualizar el estado local products cuando productList cambie
+  useEffect(() => {
+    setProducts(productList);
+  }, [productList]);
 
-  // Función para seleccionar/deseleccionar un producto
+  const [products, setProducts] = useState(productList);
+
   const toggleProductSelection = (productId) => {
     setSelectedProducts((prevSelected) => {
       if (prevSelected.includes(productId)) {
@@ -38,21 +33,31 @@ const GroupEdit = () => {
     });
   };
 
-  // Aplicar el nuevo precio a los productos seleccionados
-  const applyNewPrice = () => {
-    const price = parseFloat(newPrice);
-    if (isNaN(price)) {
-      console.error('El precio debe ser un número válido');
+  const applyPriceIncrement = () => {
+    const increment = parseFloat(priceIncrement);
+    if (isNaN(increment)) {
+      console.error('El incremento debe ser un número válido');
       return;
     }
 
     selectedProducts.forEach((productId) => {
-      dispatch(editProduct(productId, { costo: price }));
+      const product = products.find(p => p.id === productId);
+      if (product) {
+        const newPrice = product.costo * (1 + increment / 100);
+        dispatch(editProduct(productId, { costo: newPrice }));
+      }
     });
 
-    // Después de aplicar los cambios, puedes vaciar el campo de precio y deseleccionar todos los productos
-    setNewPrice('');
+    setPriceIncrement('');
     setSelectedProducts([]);
+  };
+
+  const scrollToBottom = () => {
+    window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+  };
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (
@@ -67,36 +72,41 @@ const GroupEdit = () => {
                 checked={selectedProducts.includes(product.id)}
                 onChange={() => toggleProductSelection(product.id)}
               />
-             <div className={style.header}>
-                    <img src={product.image} className={style.image} alt={product.nombreProducto} />
-                    <h2>{product.nombreProducto}</h2>
+              <div className={style.header}>
+                <img src={product.image} className={style.image} alt={product.nombreProducto} />
+                <h2>{product.nombreProducto}</h2>
+              </div>
+              <div className={style.details}>
+                <div className={style.row}>
+                  <p className={style.column}>Medidas:</p>
+                  <p>{product?.alto} x {product?.ancho}</p>
                 </div>
-                <div className={style.details}>
-                    <div className={style.row}>
-                        <p className={style.column}>Medidas:</p>
-                        <p>{product?.alto} x {product?.ancho}</p>
-                    </div>
-                    <div className={style.row}>
-                        <p className={style.column}>Tipo:</p>
-                        <p>{product.tipo}</p>
-                    </div>
-                    <div className={style.row}>
-                        <p className={style.column}>Clase:</p>
-                        <p>{product.clase}</p>
-                    </div>
-                    <div className={style.row}>
-                        <p className={style.column}>Venta:</p>
-                        <p>{product.costo}</p>
-                    </div>
-                    <div className={style.row}>
-                        <p className={style.column}>Proveedor:</p>
-                        <p>{product.proveedor}</p>
-                    </div>
-                    <div className={style.row}>
-                        <p className={style.column}>Cantidad:</p>
-                        <p>{product.cantidad}</p>
-                    </div>
+                <div className={style.row}>
+                  <p className={style.column}>Tipo:</p>
+                  <p>{product.tipo}</p>
                 </div>
+                <div className={style.row}>
+                  <p className={style.column}>Clase:</p>
+                  <p>{product.clase}</p>
+                </div>
+                <div className={style.row}>
+                  <p className={style.column}>Venta:</p>
+                  <p>
+                    ${selectedProducts.includes(product.id) 
+                      ? (product.costo * (1 + parseFloat(priceIncrement || 0) / 100)).toLocaleString('es-AR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+                      : product.costo.toLocaleString('es-AR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+                    }
+                  </p>
+                </div>
+                <div className={style.row}>
+                  <p className={style.column}>Proveedor:</p>
+                  <p>{product.proveedor}</p>
+                </div>
+                <div className={style.row}>
+                  <p className={style.column}>Cantidad:</p>
+                  <p className={product.cantidad <= 0 ? style.redText : ''}>{product.cantidad}</p>
+                </div>
+              </div>
             </div>
           ))
         ) : (
@@ -106,17 +116,23 @@ const GroupEdit = () => {
       <div className={style.actions}>
         <input
           type="number"
-          placeholder="Nuevo precio"
-          value={newPrice}
-          onChange={(e) => setNewPrice(e.target.value)}
+          placeholder="Incremento %"
+          value={priceIncrement}
+          onChange={(e) => setPriceIncrement(e.target.value)}
         />
         <button
-          onClick={applyNewPrice}
-          disabled={selectedProducts.length === 0 || newPrice === ''}
+          onClick={applyPriceIncrement}
+          disabled={selectedProducts.length === 0 || priceIncrement === ''}
         >
-          Aplicar nuevo precio
+          Aplicar incremento
         </button>
       </div>
+      <button className={style.scrollButton} onClick={scrollToBottom} style={{ right: '20px' }}>
+        <FontAwesomeIcon icon={faArrowDown} />
+      </button>
+      <button className={style.scrollButton} onClick={scrollToTop} style={{ left: '20px' }}>
+        <FontAwesomeIcon icon={faArrowUp} />
+      </button>
     </div>
   );
 };

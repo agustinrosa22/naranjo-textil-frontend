@@ -31,3 +31,55 @@
     font-weight: bold; /* Destaca las columnas (títulos) */
   }
  
+  .redText {
+    color: red;
+  }
+
+  .scrollButton {
+    position: fixed;
+    bottom: 10px;
+    padding: 10px;
+    border: none;
+    border-radius: 50%;
+    background-color: #007bff81;
+    color: white;
+    cursor: pointer;
+    z-index: 1000;
+  }
+  
+  .scrollButton:hover {
+    background-color: #0056b3;
+  }
+/* Media queries para pantallas más pequeñas */
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column; /* Cambia a columna en pantallas pequeñas */
+    margin-right: 0;
+    gap: 5px;
+    text-align: center;
+  }
+
+  .details {
+    flex-direction: column; /* Cambia a columna en pantallas pequeñas */
+    gap: 10px;
+    text-align: center;
+  }
+
+  .row {
+    flex-direction: column; /* Alinea las filas en columna */
+  }
+}
+  @media (max-width: 480px) {
+    .image {
+      width: 40px; /* Ajusta el tamaño de la imagen */
+      height: 40px;
+    }
+  
+    .header h2 {
+      font-size: 1rem; /* Ajusta el tamaño de la fuente */
+    }
+  
+    .row p {
+      font-size: 0.875rem; /* Ajusta el tamaño de la fuente */
+    }
+  }

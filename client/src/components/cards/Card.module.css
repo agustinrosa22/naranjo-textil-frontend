@@ -54,3 +54,32 @@
 .redText {
   color: red;
 }
+
+/* Media Query para pantallas pequeñas */
+@media (max-width: 768px) {
+  .card {
+    flex-direction: column; /* Cambia a columna para pantallas pequeñas */
+    align-items: center; /* Alinea elementos al centro */
+  }
+
+  .header {
+    margin-right: 0; /* Elimina el margen derecho */
+    flex-direction: column; /* Cambia a columna */
+    align-items: center; /* Centra los elementos */
+  }
+
+  .details {
+    flex-direction: column; /* Cambia a columna */
+    align-items: center; /* Centra los elementos */
+  }
+
+  .row {
+    justify-content: center; /* Centra el texto */
+    padding-top: 10px;
+  }
+
+  .image {
+    width: 70px; /* Ajusta el tamaño de la imagen */
+    height: 70px;
+  }
+}

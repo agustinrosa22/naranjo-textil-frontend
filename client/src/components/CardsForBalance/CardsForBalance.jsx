@@ -26,6 +26,8 @@ const TransactionCard = ({ transaction, onDelete }) => {
     }
   };
 
+  console.log(transaction)
+
 
   return (
     <div className={style.card}>

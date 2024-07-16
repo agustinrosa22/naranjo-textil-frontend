@@ -21,6 +21,8 @@ import {
     GET_TRANSACTIONS_AND_PRODUCT_SUCCESS,
     GET_TRANSACTIONS_AND_PRODUCT_FAILURE, 
     REMOVE_TRANSACTION,
+    FETCH_PRODUCTS_SUCCESS,
+    FETCH_PRODUCTS_FAILURE
 } from './actionTypes'
 
 export const getProducts = () => {
@@ -262,4 +264,20 @@ export const removeTransactionFromStore = (transactionId) => {
     type: REMOVE_TRANSACTION,
     payload: transactionId, // Identificador de la transacción a eliminar
   };
+};
+
+export const fetchProducts = () => async (dispatch) => {
+  try {
+    const response = await axios.get('/product/');
+    const data = Array.isArray(response.data.data) ? response.data.data : [];
+    dispatch({
+      type: FETCH_PRODUCTS_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: FETCH_PRODUCTS_FAILURE,
+      payload: error.message,
+    });
+  }
 };
