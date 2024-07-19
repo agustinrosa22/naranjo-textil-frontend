@@ -4,12 +4,18 @@
     padding: 10px;
     border: none;
     border-radius: 50%;
-    background-color: #007bff81;
-    color: white;
+    background-color: #ffffff81;
+    color: rgb(0, 0, 0);
     cursor: pointer;
     z-index: 1000;
   }
   
   .scrollButton:hover {
-    background-color: #0056b3;
+    background-color: #ffffff;
+  }
+
+  @media (max-width: 768px) {
+    .scrollButton {
+ width: 30px;
+    }
   }

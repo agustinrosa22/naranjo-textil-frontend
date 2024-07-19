@@ -26,7 +26,7 @@ const TransactionCard = ({ transaction, onDelete }) => {
     }
   };
 
-  console.log(transaction)
+  // console.log(transaction)
 
 
   return (
@@ -46,7 +46,7 @@ const TransactionCard = ({ transaction, onDelete }) => {
                     </div>
                     <div className={style.row}>
                         <p className={style.column}>Venta:</p>
-                        <p>{transaction.costo}</p>
+                        <p>${transaction?.costo?.toLocaleString('es-AR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
                     </div>
                     <div className={style.row}>
                         <p className={style.column}>Vendedor:</p>

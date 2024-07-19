@@ -80,7 +80,7 @@ const CartView = () => {
       alto: product.alto,
       ancho: product.ancho
     };
-    console.log(saleData);
+    // console.log(saleData);
     dispatch(sellProduct(saleData));
   };
 
@@ -89,7 +89,7 @@ const CartView = () => {
     setCart([]); // Vaciar el carrito después de finalizar todas las compras
     localStorage.removeItem('cart');
   };
-
+// console.log(sellProduct)
   return (
     <div className={style.cartContainer}>
     <h2>Carrito de Compras</h2>

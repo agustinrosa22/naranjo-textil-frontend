@@ -7,3 +7,25 @@
 .date{
     width: 50%;
 }
+
+.scrollButton {
+    position: fixed;
+    bottom: 10px;
+    padding: 10px;
+    border: none;
+    border-radius: 50%;
+    background-color: #ffffff81;
+    color: rgb(0, 0, 0);
+    cursor: pointer;
+    z-index: 1000;
+  }
+  
+  .scrollButton:hover {
+    background-color: #ffffff;
+  }
+
+  @media (max-width: 768px) {
+    .scrollButton {
+ width: 30px;
+    }
+  }

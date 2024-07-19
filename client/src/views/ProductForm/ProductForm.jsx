@@ -59,7 +59,7 @@ const ProductForm = () => {
     }
   };
 
-  console.log(formData);
+  // console.log(formData);
 
   return (
     <div className={styles.container}>

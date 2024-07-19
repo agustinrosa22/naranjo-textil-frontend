@@ -5,6 +5,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { getTransactionsAndProduct } from '../../redux/actions';
 import CardsContainerForBalances from '../../components/CardsContainerForBalances/CardsContainerForBalances';
 import style from './Balance.module.css'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowUp, faArrowDown } from '@fortawesome/free-solid-svg-icons';
 
 
 const TransactionView = () => {
@@ -62,6 +64,15 @@ const TransactionView = () => {
   if (error) {
     return <div>Error: {error}</div>;
   }
+
+  const scrollToBottom = () => {
+    window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+  };
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   return (
     <div>
       <h1>VENTAS</h1>
@@ -126,6 +137,12 @@ const TransactionView = () => {
         <button onClick={handleResetFilters}>Resetear Filtros</button>
       </div>
       <CardsContainerForBalances transactions={transactions} />
+      <button className={style.scrollButton} onClick={scrollToBottom} style={{ right: '20px' }}>
+        <FontAwesomeIcon icon={faArrowDown} />
+      </button>
+      <button className={style.scrollButton} onClick={scrollToTop} style={{ left: '20px' }}>
+        <FontAwesomeIcon icon={faArrowUp} />
+      </button>  
     </div>
   );
 };

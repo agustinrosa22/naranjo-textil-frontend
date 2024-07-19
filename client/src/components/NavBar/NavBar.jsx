@@ -7,7 +7,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../../redux/actions';
 import { FaBars, FaTimes } from 'react-icons/fa';
 
-
 const NavBar = () => {
     const [menuOpen, setMenuOpen] = useState(false);
     const dispatch = useDispatch();
@@ -25,7 +24,6 @@ const NavBar = () => {
     return (
         <div className={styles.navContainer}>
             <nav className={styles.navbar}>
-              
                 <Link to='/home'>
                     <img src={Logo} alt="Naranjo Diseño e Interiores" className={styles.logo} />
                 </Link>
@@ -33,21 +31,19 @@ const NavBar = () => {
                     {menuOpen ? <FaTimes /> : <FaBars />}
                 </div>
                 <div className={`${styles.navLinks} ${menuOpen ? styles.showMenu : ''}`}>
-                <SearchBar />
+                    <SearchBar />
                     {user && user.tipo === 'Admin' && (
-                        <NavLink to='/groupedit' className={styles.link} onClick={toggleMenu}>
-                            <h2>Edit Precio</h2>
-                        </NavLink>
-                    )}
-                    {user && user.tipo === 'Admin' && (
-                        <NavLink to='/create' className={styles.link} onClick={toggleMenu}>
-                            <h2>Agregar</h2>
-                        </NavLink>
-                    )}
-                    {user && user.tipo === 'Admin' && (
-                        <NavLink to='/balance' className={styles.link} onClick={toggleMenu}>
-                            <h2>Balances</h2>
-                        </NavLink>
+                        <>
+                            <NavLink to='/groupedit' className={styles.link} onClick={toggleMenu}>
+                                <h2>Precios</h2>
+                            </NavLink>
+                            <NavLink to='/create' className={styles.link} onClick={toggleMenu}>
+                                <h2>Agregar</h2>
+                            </NavLink>
+                            <NavLink to='/balance' className={styles.link} onClick={toggleMenu}>
+                                <h2>Balances</h2>
+                            </NavLink>
+                        </>
                     )}
                     <NavLink to='/carrito' className={styles.link} onClick={toggleMenu}>
                         <h2>Carrito</h2>

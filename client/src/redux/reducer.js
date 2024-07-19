@@ -35,9 +35,10 @@ import {
     error: null,
     saleData: null,
     loading: false,
-    user: null,
+    user: JSON.parse(localStorage.getItem('user')) || null,
     product: null,
   };
+ 
   const rootReducer = (state = initialState, action) => {
 switch(action.type) {
     case GET_PRODUCTS:
@@ -120,12 +121,12 @@ switch(action.type) {
                                 loading: true,
                                 error: null,
                               };
-                            case GET_ALL_TRANSACTIONS_SUCCESS:
-                              return {
-                                ...state,
-                                transactions: action.payload,
-                                loading: false,
-                              };
+                              case GET_ALL_TRANSACTIONS_SUCCESS:
+                                return {
+                                  ...state,
+                                  transactions: action.payload.sort((a, b) => b.id - a.id),
+                                  loading: false,
+                                };
                             case GET_ALL_TRANSACTIONS_FAILURE:
                               return {
                                 ...state,

@@ -68,6 +68,9 @@
   .row {
     flex-direction: column; /* Alinea las filas en columna */
   }
+  .scrollButton {
+    width: 30px;
+       }
 }
   @media (max-width: 480px) {
     .image {
@@ -82,4 +85,7 @@
     .row p {
       font-size: 0.875rem; /* Ajusta el tamaño de la fuente */
     }
+    .scrollButton {
+      width: 30px;
+         }
   }
