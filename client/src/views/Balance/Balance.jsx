@@ -131,6 +131,7 @@ const TransactionView = () => {
     <option value="BORLAS">Borlas</option>
     <option value="MOBILIARIO">Mobiliario</option>
     <option value="ALFOMBRAS">Alfombras</option>
+    <option value="OTROS">Otros</option>
     {/* Otros tipos de clases */}
   </select>
         <button onClick={handleFilter}>Filtrar</button>

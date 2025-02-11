@@ -4,16 +4,15 @@ import { createProduct } from '../../redux/actions';
 import { useNavigate } from 'react-router-dom';
 import styles from './ProductForm.module.css';
 import Logo from '../../assets/logo.png';
-import MultiplesImagenes from '../../components/MultiplesImagenes/MultiplesImagenes';
 
 const ProductForm = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = useSelector(state => state.user);
+
   const [formData, setFormData] = useState({
     nombreProducto: '',
     productoId: '',
-    image: '',
     alto: '', 
     ancho: '',
     proveedor: '',
@@ -27,12 +26,8 @@ const ProductForm = () => {
     clase: '',
   });
 
-  const handleImageSelected = (imageUrl) => {
-    setFormData({
-      ...formData,
-      image: imageUrl,
-    });
-  };
+  const [selectedImage, setSelectedImage] = useState(null); // Para almacenar la imagen seleccionada
+  const [previewImage, setPreviewImage] = useState(''); // Para previsualizar la imagen
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -49,17 +44,36 @@ const ProductForm = () => {
     }));
   };
 
+  // Maneja la selección de una imagen
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setSelectedImage(file); // Guardamos la imagen seleccionada
+      setPreviewImage(URL.createObjectURL(file)); // Creamos la URL de previsualización
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const formDataWithImage = new FormData(); // Usamos FormData para enviar la imagen y el resto de datos
+
+    // Agregamos todos los datos del formulario al FormData
+    Object.keys(formData).forEach((key) => {
+      formDataWithImage.append(key, formData[key]);
+    });
+
+    // Si se seleccionó una imagen, también la agregamos
+    if (selectedImage) {
+      formDataWithImage.append('image', selectedImage); // "image" será el campo donde enviamos la imagen
+    }
+
     try {
-      await dispatch(createProduct(formData));
-      navigate('/home');
+      await dispatch(createProduct(formDataWithImage)); // Enviamos el FormData que contiene los datos y la imagen
+      navigate('/home'); // Redirigimos tras crear el producto
     } catch (error) {
       alert(`Error al crear producto: ${error.message}`);
     }
   };
-
-  // console.log(formData);
 
   return (
     <div className={styles.container}>
@@ -82,7 +96,7 @@ const ProductForm = () => {
             ID del Producto:
             <input
               className={styles.input}
-              placeholder='Id del producto'
+              placeholder='ID del producto'
               type="text"
               name="productoId"
               value={formData.productoId}
@@ -90,31 +104,49 @@ const ProductForm = () => {
               disabled={user && user.tipo !== 'Admin'}
             />
           </label>
+          
+          {/* Campo para seleccionar la imagen */}
           <label>
-           <MultiplesImagenes onImageSelected={handleImageSelected}  disabled={user && user.tipo !== 'Admin'}/> {/* Componente MultiplesImagenes */}
+            Imagen del producto:
+            <input
+              className={styles.input}
+              type="file"
+              accept="image/*"
+              onChange={handleImageChange}
+              disabled={user && user.tipo !== 'Admin'}
+            />
+          </label>
+          
+          {/* Previsualización de la imagen seleccionada */}
+          {previewImage && (
+            <div className={styles.imagePreview}>
+              <img src={previewImage} alt="Previsualización" className={styles.preview} />
+            </div>
+          )}
+
+          <label>
+            Alto (cm):
+            <input
+              className={styles.input}
+              placeholder='Alto (cm)'
+              type="number"
+              name="alto"
+              value={formData.alto}
+              onChange={handleChange}
+              disabled={user && user.tipo !== 'Admin'}
+            />
           </label>
           <label>
-            Medidas:
-            <div>
-              <input
-                className={styles.input}
-                placeholder='Alto cm'
-                type="number"
-                name="alto"
-                value={formData.alto}
-                onChange={handleChange}
-                disabled={user && user.tipo !== 'Admin'}
-              />
-              <input
-                className={styles.input}
-                placeholder='Ancho cm'
-                type="number"
-                name="ancho"
-                value={formData.ancho}
-                onChange={handleChange}
-                disabled={user && user.tipo !== 'Admin'}
-              />
-            </div>
+            Ancho (cm):
+            <input
+              className={styles.input}
+              placeholder='Ancho (cm)'
+              type="number"
+              name="ancho"
+              value={formData.ancho}
+              onChange={handleChange}
+              disabled={user && user.tipo !== 'Admin'}
+            />
           </label>
           <label>
             Proveedor:
@@ -132,7 +164,7 @@ const ProductForm = () => {
             ID del Proveedor:
             <input
               className={styles.input}
-              placeholder='Id del proveedor'
+              placeholder='ID del proveedor'
               type="text"
               name="proveedorId"
               value={formData.proveedorId}
@@ -232,9 +264,12 @@ const ProductForm = () => {
               <option value="BORLAS">Borlas</option>
               <option value="MOBILIARIO">Mobiliario</option>
               <option value="ALFOMBRAS">Alfombras</option>
+              <option value="OTROS">Otros</option>
             </select>
           </div>
-          <button type="submit" className={styles.submitButton}  disabled={user && user.tipo !== 'Admin'}>Crear Producto</button>
+          <button type="submit" className={styles.submitButton} disabled={user && user.tipo !== 'Admin'}>
+            Crear Producto
+          </button>
         </form>
       </div>
       <img src={Logo} alt="Logo" className={styles.img} />

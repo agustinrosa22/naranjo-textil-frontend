@@ -25,7 +25,7 @@ const Card = (props) => {
                     </div>
                     <div className={styles.row}>
                         <p className={styles.column}>Venta:</p>
-                        <p>${props.costo.toLocaleString('es-AR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
+                        <p>${props.costo?.toLocaleString('es-AR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
                     </div>
                     <div className={styles.row}>
                         <p className={styles.column}>Proveedor:</p>
